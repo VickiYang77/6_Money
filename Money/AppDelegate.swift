@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Money
 //
-//  Created by 金融研發一部-楊雅婷 on 2023/5/13.
+//  Created by Vicki Yang on 2023/5/13.
 //
 
 import UIKit
