@@ -15,7 +15,8 @@
 		996C614F2A0F7169008FEC41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 996C614D2A0F7169008FEC41 /* LaunchScreen.storyboard */; };
 		996C61592A0F766C008FEC41 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61582A0F766B008FEC41 /* HomeViewController.swift */; };
 		996C615B2A0F7680008FEC41 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 996C615A2A0F7680008FEC41 /* HomeViewController.xib */; };
-		996C615D2A0F8AB6008FEC41 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C615C2A0F8AB6008FEC41 /* Color.swift */; };
+		996C615D2A0F8AB6008FEC41 /* ColorHepler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C615C2A0F8AB6008FEC41 /* ColorHepler.swift */; };
+		996C61602A0F8CD4008FEC41 /* ExtensionHepler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C615F2A0F8CD4008FEC41 /* ExtensionHepler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +30,8 @@
 		996C61502A0F7169008FEC41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		996C61582A0F766B008FEC41 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		996C615A2A0F7680008FEC41 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
-		996C615C2A0F8AB6008FEC41 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		996C615C2A0F8AB6008FEC41 /* ColorHepler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHepler.swift; sourceTree = "<group>"; };
+		996C615F2A0F8CD4008FEC41 /* ExtensionHepler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionHepler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +97,8 @@
 		996C615E2A0F8AB9008FEC41 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				996C615C2A0F8AB6008FEC41 /* Color.swift */,
+				996C615C2A0F8AB6008FEC41 /* ColorHepler.swift */,
+				996C615F2A0F8CD4008FEC41 /* ExtensionHepler.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -175,7 +178,8 @@
 				996C61472A0F7166008FEC41 /* ViewController.swift in Sources */,
 				996C61432A0F7166008FEC41 /* AppDelegate.swift in Sources */,
 				996C61452A0F7166008FEC41 /* SceneDelegate.swift in Sources */,
-				996C615D2A0F8AB6008FEC41 /* Color.swift in Sources */,
+				996C61602A0F8CD4008FEC41 /* ExtensionHepler.swift in Sources */,
+				996C615D2A0F8AB6008FEC41 /* ColorHepler.swift in Sources */,
 				996C61592A0F766C008FEC41 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

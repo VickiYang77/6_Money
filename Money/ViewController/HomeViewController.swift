@@ -17,5 +17,6 @@ class HomeViewController: UIViewController {
     
     func setupUI() {
         navigationItem.title = "Money Note"
+        navigationController?.navigationBar.addBottomSeparator()
     }
 }
