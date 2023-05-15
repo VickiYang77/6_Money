@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="HPH-ee-mgh" userLabel="RecordSectionView" customClass="RecordSectionView" customModule="Money" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="BkK-KU-gRp">
+                    <rect key="frame" x="10" y="0.0" width="373" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LST-ik-Vkk" userLabel="Date Label">
+                            <rect key="frame" x="0.0" y="0.0" width="237" height="44"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FkG-Cn-44l" userLabel="Total Label">
+                            <rect key="frame" x="237" y="0.0" width="136" height="44"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Hio-eb-ZSP"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="BkK-KU-gRp" secondAttribute="trailing" constant="10" id="AW2-6S-Fds"/>
+                <constraint firstItem="BkK-KU-gRp" firstAttribute="bottom" secondItem="HPH-ee-mgh" secondAttribute="bottom" id="K8y-Ts-pUG"/>
+                <constraint firstItem="BkK-KU-gRp" firstAttribute="leading" secondItem="HPH-ee-mgh" secondAttribute="leading" constant="10" id="YeS-EU-va7"/>
+                <constraint firstItem="BkK-KU-gRp" firstAttribute="top" secondItem="HPH-ee-mgh" secondAttribute="top" id="pNT-OI-Atn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="dateLabel" destination="LST-ik-Vkk" id="Qme-V6-C8c"/>
+                <outlet property="totalLabel" destination="FkG-Cn-44l" id="SUY-CC-3Bz"/>
+            </connections>
+            <point key="canvasLocation" x="-1117" y="-18"/>
+        </view>
+    </objects>
+</document>
