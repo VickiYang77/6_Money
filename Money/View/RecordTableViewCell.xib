@@ -20,20 +20,21 @@
                         <rect key="frame" x="10" y="0.0" width="373" height="44"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollarsign.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JOg-Hz-ti0" userLabel="Image View">
-                                <rect key="frame" x="0.0" y="1" width="44" height="42.666666666666671"/>
+                                <rect key="frame" x="0.0" y="2.3333333333333321" width="44" height="39.333333333333343"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="JOg-Hz-ti0" secondAttribute="height" id="w4t-5o-JQ6"/>
+                                    <constraint firstAttribute="width" secondItem="JOg-Hz-ti0" secondAttribute="height" multiplier="1:1" id="w4t-5o-JQ6"/>
                                 </constraints>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FhH-I6-2Rx" userLabel="Record Label">
-                                <rect key="frame" x="53.999999999999986" y="0.0" width="151.66666666666663" height="44"/>
+                                <rect key="frame" x="54" y="0.0" width="158" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckT-S3-fVx" userLabel="Price Label">
-                                <rect key="frame" x="215.66666666666663" y="0.0" width="157.33333333333337" height="44"/>
+                                <rect key="frame" x="222" y="0.0" width="151" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

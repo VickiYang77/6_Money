@@ -17,6 +17,22 @@ enum costType {
     case drinks
     case shopping
     case transportation
+    case gift
+    
+    var icon: String {
+        switch self {
+        case .none:                 return "dollarsign.circle"
+        case .dailyNecessities:     return "cart"
+        case .breakfast:            return "fork.knife"
+        case .lunch:                return "fork.knife"
+        case .dinner:               return "fork.knife"
+        case .dessert:              return "fork.knife"
+        case .drinks:               return "cup.and.saucer"
+        case .shopping:             return "bag"
+        case .transportation:       return "tram"
+        case .gift:                 return "gift"
+        }
+    }
 }
 
 class RecordTableViewCell: UITableViewCell {
@@ -25,6 +41,7 @@ class RecordTableViewCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     
     func setupUI(type: costType = .none, title: String, price: String) {
+        self.typeImageView.image = UIImage(systemName: type.icon)
         self.recordLabel.text = title
         self.priceLabel.text = "$\(price)"
     }
