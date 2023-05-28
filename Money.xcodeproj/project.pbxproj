@@ -10,6 +10,8 @@
 		99529A0C2A10AAD10053E71A /* RecordSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99529A0B2A10AAD10053E71A /* RecordSectionView.swift */; };
 		99529A0E2A10AADA0053E71A /* RecordSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99529A0D2A10AADA0053E71A /* RecordSectionView.xib */; };
 		99529A112A1280DF0053E71A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99529A102A1280DF0053E71A /* HomeViewModel.swift */; };
+		99622B802A23A57100309413 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99622B7F2A23A57100309413 /* HomeView.swift */; };
+		99622B822A23A5A900309413 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99622B812A23A5A900309413 /* HomeView.xib */; };
 		996C61432A0F7166008FEC41 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61422A0F7166008FEC41 /* AppDelegate.swift */; };
 		996C61452A0F7166008FEC41 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61442A0F7166008FEC41 /* SceneDelegate.swift */; };
 		996C61472A0F7166008FEC41 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61462A0F7166008FEC41 /* ViewController.swift */; };
@@ -18,16 +20,23 @@
 		996C614F2A0F7169008FEC41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 996C614D2A0F7169008FEC41 /* LaunchScreen.storyboard */; };
 		996C61592A0F766C008FEC41 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61582A0F766B008FEC41 /* HomeViewController.swift */; };
 		996C615B2A0F7680008FEC41 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 996C615A2A0F7680008FEC41 /* HomeViewController.xib */; };
-		996C615D2A0F8AB6008FEC41 /* ColorHepler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C615C2A0F8AB6008FEC41 /* ColorHepler.swift */; };
+		996C615D2A0F8AB6008FEC41 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C615C2A0F8AB6008FEC41 /* UIColor+.swift */; };
 		996C61602A0F8CD4008FEC41 /* ExtensionHepler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C615F2A0F8CD4008FEC41 /* ExtensionHepler.swift */; };
 		996C61622A0F9F3F008FEC41 /* RecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 996C61612A0F9F3F008FEC41 /* RecordTableViewCell.xib */; };
 		996C61642A0FA3D0008FEC41 /* RecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61632A0FA3D0008FEC41 /* RecordTableViewCell.swift */; };
+		9977D0B02A21E600006B9932 /* AddRecordPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977D0AE2A21E600006B9932 /* AddRecordPageViewController.swift */; };
+		9977D0B12A21E600006B9932 /* AddRecordPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9977D0AF2A21E600006B9932 /* AddRecordPageViewController.xib */; };
+		9977D0B32A223886006B9932 /* AddRecordPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977D0B22A223886006B9932 /* AddRecordPageViewModel.swift */; };
+		9977D0B62A236454006B9932 /* RecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977D0B52A236454006B9932 /* RecordModel.swift */; };
+		9977D0B82A236885006B9932 /* RecordAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977D0B72A236885006B9932 /* RecordAPIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		99529A0B2A10AAD10053E71A /* RecordSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordSectionView.swift; sourceTree = "<group>"; };
 		99529A0D2A10AADA0053E71A /* RecordSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordSectionView.xib; sourceTree = "<group>"; };
 		99529A102A1280DF0053E71A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		99622B7F2A23A57100309413 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		99622B812A23A5A900309413 /* HomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeView.xib; sourceTree = "<group>"; };
 		996C613F2A0F7166008FEC41 /* Money.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Money.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		996C61422A0F7166008FEC41 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		996C61442A0F7166008FEC41 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,10 +47,15 @@
 		996C61502A0F7169008FEC41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		996C61582A0F766B008FEC41 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		996C615A2A0F7680008FEC41 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
-		996C615C2A0F8AB6008FEC41 /* ColorHepler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHepler.swift; sourceTree = "<group>"; };
+		996C615C2A0F8AB6008FEC41 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		996C615F2A0F8CD4008FEC41 /* ExtensionHepler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionHepler.swift; sourceTree = "<group>"; };
 		996C61612A0F9F3F008FEC41 /* RecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordTableViewCell.xib; sourceTree = "<group>"; };
 		996C61632A0FA3D0008FEC41 /* RecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTableViewCell.swift; sourceTree = "<group>"; };
+		9977D0AE2A21E600006B9932 /* AddRecordPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPageViewController.swift; sourceTree = "<group>"; };
+		9977D0AF2A21E600006B9932 /* AddRecordPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRecordPageViewController.xib; sourceTree = "<group>"; };
+		9977D0B22A223886006B9932 /* AddRecordPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPageViewModel.swift; sourceTree = "<group>"; };
+		9977D0B52A236454006B9932 /* RecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModel.swift; sourceTree = "<group>"; };
+		9977D0B72A236885006B9932 /* RecordAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordAPIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,9 +72,11 @@
 		99529A0F2A1280A70053E71A /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				996C61572A0F7333008FEC41 /* ViewController */,
-				996C61562A0F7326008FEC41 /* View */,
+				9977D0B42A236445006B9932 /* Model */,
+				996C61582A0F766B008FEC41 /* HomeViewController.swift */,
+				996C615A2A0F7680008FEC41 /* HomeViewController.xib */,
 				99529A102A1280DF0053E71A /* HomeViewModel.swift */,
+				996C61562A0F7326008FEC41 /* View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -85,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				99529A0F2A1280A70053E71A /* Home */,
+				9977D0AD2A21E4FD006B9932 /* AddRecordPage */,
 				996C615E2A0F8AB9008FEC41 /* Helper */,
 				996C61422A0F7166008FEC41 /* AppDelegate.swift */,
 				996C61442A0F7166008FEC41 /* SceneDelegate.swift */,
@@ -100,6 +117,8 @@
 		996C61562A0F7326008FEC41 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				99622B7F2A23A57100309413 /* HomeView.swift */,
+				99622B812A23A5A900309413 /* HomeView.xib */,
 				99529A0B2A10AAD10053E71A /* RecordSectionView.swift */,
 				99529A0D2A10AADA0053E71A /* RecordSectionView.xib */,
 				996C61632A0FA3D0008FEC41 /* RecordTableViewCell.swift */,
@@ -108,22 +127,32 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		996C61572A0F7333008FEC41 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				996C61582A0F766B008FEC41 /* HomeViewController.swift */,
-				996C615A2A0F7680008FEC41 /* HomeViewController.xib */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
 		996C615E2A0F8AB9008FEC41 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				996C615C2A0F8AB6008FEC41 /* ColorHepler.swift */,
+				996C615C2A0F8AB6008FEC41 /* UIColor+.swift */,
 				996C615F2A0F8CD4008FEC41 /* ExtensionHepler.swift */,
+				9977D0B72A236885006B9932 /* RecordAPIService.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		9977D0AD2A21E4FD006B9932 /* AddRecordPage */ = {
+			isa = PBXGroup;
+			children = (
+				9977D0AE2A21E600006B9932 /* AddRecordPageViewController.swift */,
+				9977D0AF2A21E600006B9932 /* AddRecordPageViewController.xib */,
+				9977D0B22A223886006B9932 /* AddRecordPageViewModel.swift */,
+			);
+			path = AddRecordPage;
+			sourceTree = "<group>";
+		};
+		9977D0B42A236445006B9932 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9977D0B52A236454006B9932 /* RecordModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +214,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				996C614F2A0F7169008FEC41 /* LaunchScreen.storyboard in Resources */,
+				99622B822A23A5A900309413 /* HomeView.xib in Resources */,
+				9977D0B12A21E600006B9932 /* AddRecordPageViewController.xib in Resources */,
 				996C614C2A0F7169008FEC41 /* Assets.xcassets in Resources */,
 				996C614A2A0F7166008FEC41 /* Main.storyboard in Resources */,
 				99529A0E2A10AADA0053E71A /* RecordSectionView.xib in Resources */,
@@ -201,13 +232,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				996C61472A0F7166008FEC41 /* ViewController.swift in Sources */,
+				99622B802A23A57100309413 /* HomeView.swift in Sources */,
 				99529A112A1280DF0053E71A /* HomeViewModel.swift in Sources */,
 				996C61432A0F7166008FEC41 /* AppDelegate.swift in Sources */,
 				996C61642A0FA3D0008FEC41 /* RecordTableViewCell.swift in Sources */,
+				9977D0B32A223886006B9932 /* AddRecordPageViewModel.swift in Sources */,
 				996C61452A0F7166008FEC41 /* SceneDelegate.swift in Sources */,
 				996C61602A0F8CD4008FEC41 /* ExtensionHepler.swift in Sources */,
 				99529A0C2A10AAD10053E71A /* RecordSectionView.swift in Sources */,
-				996C615D2A0F8AB6008FEC41 /* ColorHepler.swift in Sources */,
+				9977D0B62A236454006B9932 /* RecordModel.swift in Sources */,
+				9977D0B82A236885006B9932 /* RecordAPIService.swift in Sources */,
+				996C615D2A0F8AB6008FEC41 /* UIColor+.swift in Sources */,
+				9977D0B02A21E600006B9932 /* AddRecordPageViewController.swift in Sources */,
 				996C61592A0F766C008FEC41 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

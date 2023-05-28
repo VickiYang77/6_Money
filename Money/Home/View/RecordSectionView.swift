@@ -13,10 +13,16 @@ class RecordSectionView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        dateLabel.textColor = .white
+        totalLabel.textColor = .white
+        
+        let view = UIView()
+        view.backgroundColor = .topicBlue
+        backgroundView = view
     }
     
     func setupUI(date: String, total: String) {
-        self.dateLabel.text = date
-        self.totalLabel.text = "$\(total)"
+        dateLabel.text = date
+        totalLabel.text = "$\(total)"
     }
 }

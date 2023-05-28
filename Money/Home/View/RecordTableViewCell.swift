@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum costType {
+enum recordType {
     case none
     case dailyNecessities
     case breakfast
@@ -40,9 +40,12 @@ class RecordTableViewCell: UITableViewCell {
     @IBOutlet weak var recordLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
-    func setupUI(type: costType = .none, title: String, price: String) {
-        self.typeImageView.image = UIImage(systemName: type.icon)
-        self.recordLabel.text = title
-        self.priceLabel.text = "$\(price)"
+    func setupUI(type: String = "", memo: String, price: String) {
+        typeImageView.image = UIImage(systemName: recordType.none.icon)
+        recordLabel.text = memo
+        priceLabel.text = "$\(price)"
+        
+        layer.borderColor = UIColor.gray.cgColor
+        layer.borderWidth = 1.0
     }
 }

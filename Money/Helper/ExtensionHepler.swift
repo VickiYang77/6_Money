@@ -8,7 +8,7 @@
 import UIKit
 
 extension UINavigationBar {
-    func addBottomSeparator(color: UIColor = ColorHepler.topSeparatorColor) {
+    func addBottomSeparator(color: UIColor = .topSeparator) {
         let separatorView = UIView()
         separatorView.backgroundColor = color
         separatorView.translatesAutoresizingMaskIntoConstraints = false
