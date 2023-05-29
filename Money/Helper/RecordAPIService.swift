@@ -8,6 +8,8 @@
 import Foundation
 
 class RecordAPIService {
+    static let share = RecordAPIService()
+    
     private let url = "https://api.airtable.com/v0/appLrblBIgiRkLHYX/Record"
     
     private func createRequest(url: String = "") -> URLRequest {
@@ -18,7 +20,7 @@ class RecordAPIService {
     }
     
     func fetchRecords(completion: @escaping ([RecordModel]) -> Void) {
-        var request = self.createRequest(url: "?sort[0][field]=date&sort[0][direction]=desc&sort[1][field]=createdTime&sort[1][direction]=desc")
+        var request = createRequest(url: "?sort[0][field]=date&sort[0][direction]=desc&sort[1][field]=createdTime&sort[1][direction]=desc")
         request.httpMethod = "GET"
         
         URLSession.shared.dataTask(with: request) { (data, _, error) in
@@ -28,12 +30,27 @@ class RecordAPIService {
             }
             
             do {
-                let response = try JSONDecoder().decode(RecordsResponse.self, from: data)
-                let recordModels = response.records.map { $0.fields }
-                completion(recordModels)
+                let response = try JSONDecoder().decode(FetchRecordResponse.self, from: data)
+                let records = response.records.map { $0.fields }
+                completion(records)
             } catch {
                 print("vvv_解析錯誤：\(error)")
             }
+        }.resume()
+    }
+    
+    func insertRecords(_ records: InsetRecordRequest, completion: @escaping () -> Void) {
+        var request = createRequest()
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONEncoder().encode(records)
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            guard error == nil else {
+                print("vvv_Error")
+                return
+            }
+            
+            completion()
         }.resume()
     }
 }

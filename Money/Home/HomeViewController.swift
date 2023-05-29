@@ -7,26 +7,6 @@
 
 import UIKit
 
-//struct SectionData {
-//    var date: String
-//
-//    lazy var total: Int = {
-//        return self.records.reduce(0) { $0 + $1.price }
-//    }()
-//
-//    var records: [FieldsModel]
-//
-//    // 是否收合
-//    var isOpen: Bool
-//}
-//
-//struct RecordData {
-//    var date: String
-//    var type: costType
-//    var title: String
-//    var price: Int
-//}
-
 class HomeViewController: UIViewController {
     @IBOutlet weak var addRecordBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -103,7 +83,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cellDatas = viewModel.records[date], cellDatas.count > indexPath.row else { return UITableViewCell() }
         
         let cellData = cellDatas[indexPath.row]
-        cell.setupUI(type: cellData.typeName[0], memo: cellData.memo, price: "\(cellData.price)")
+        cell.setupUI(typeId: cellData.typeId, title: cellData.title, price: "\(cellData.price)")
         return cell
     }
     

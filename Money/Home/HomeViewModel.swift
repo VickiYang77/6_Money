@@ -8,7 +8,6 @@
 import UIKit
 
 class HomeViewModel {
-    var apiService = RecordAPIService()
     var dateSection: [String] = []
     var records: [String: [RecordModel]] = [:]
     
@@ -19,7 +18,7 @@ class HomeViewModel {
     }
     
     func fetchRecords() {
-        apiService.fetchRecords(completion: { [weak self] result in
+        RecordAPIService.share.fetchRecords(completion: { [weak self] result in
             guard let self = self else { return }
             self.records = Dictionary(grouping: result) {
                 $0.date

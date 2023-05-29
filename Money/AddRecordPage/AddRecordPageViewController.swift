@@ -8,10 +8,11 @@
 import UIKit
 
 class AddRecordPageViewController: UIViewController {
-    @IBOutlet weak var memoTextField: UITextField!
+    @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var calculateStackView: UIStackView!
     
+    @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var minusButton: UIButton!
@@ -45,17 +46,30 @@ class AddRecordPageViewController: UIViewController {
         
         switch btnTag {
         case 0...9:
-            viewModel.total += btnTag
+            viewModel.priceTotal += btnTag * 100
+            priceLabel.text = "$ \(viewModel.priceTotal)"
         case 91...94:
             sender.backgroundColor = .topicRed
-            viewModel.currentSymbolTag = btnTag
+            viewModel.currentOperatorTag = btnTag
             
         case 999:
-            print("vvv_ok:\(memoTextField.text)")
-            navigationController?.popViewController(animated: true)
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let recordDate = formatter.string(from: datePicker.date)
+            
+            let record = RecordModel(title: titleTextField.text ?? "", price: viewModel.priceTotal, date: recordDate, isExpense: 1)
+            
+            let records = InsetRecordRequest(records: [
+                .init(fields: record)
+            ])
+            
+            RecordAPIService.share.insertRecords(records) { [weak self] in
+                DispatchQueue.main.async {
+                    self?.navigationController?.popViewController(animated: true)
+                }
+            }
         default:
             return
         }
     }
-    
 }

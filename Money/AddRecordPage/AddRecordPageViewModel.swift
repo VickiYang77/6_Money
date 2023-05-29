@@ -8,8 +8,8 @@
 import UIKit
 
 class AddRecordPageViewModel {
-    var total = 0
+    var priceTotal = 0
     
     // 91除, 92乘, 93加, 94減
-    var currentSymbolTag = 0
+    var currentOperatorTag = 0
 }

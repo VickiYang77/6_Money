@@ -40,9 +40,9 @@ class RecordTableViewCell: UITableViewCell {
     @IBOutlet weak var recordLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
-    func setupUI(type: String = "", memo: String, price: String) {
-        typeImageView.image = UIImage(systemName: recordType.none.icon)
-        recordLabel.text = memo
+    func setupUI(typeId: String? = "", title: String, price: String) {
+        typeImageView.image = (typeId == nil || typeId == "") ? UIImage(systemName: recordType.none.icon) : UIImage(systemName: recordType.gift.icon)
+        recordLabel.text = title
         priceLabel.text = "$\(price)"
         
         layer.borderColor = UIColor.gray.cgColor
