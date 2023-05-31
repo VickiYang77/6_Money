@@ -62,7 +62,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let date = viewModel.dateSection[section]
-        return viewModel.records[date]?.count ?? 0
+        return viewModel.recordsDic[date]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -71,7 +71,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard viewModel.dateSection.count > section else { return UITableViewHeaderFooterView() }
         
         let date = viewModel.dateSection[section]
-        let total = viewModel.records[date]?.reduce(0, { $0 + $1.price}) ?? 0
+        let total = viewModel.recordsDic[date]?.reduce(0, { $0 + $1.fields.price}) ?? 0
         sectionView.setupUI(date: date, total: "\(total)")
         return sectionView
     }
@@ -80,10 +80,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecordTableViewCell.identifier, for: indexPath) as! RecordTableViewCell
         
         let date = viewModel.dateSection[indexPath.section]
-        guard let cellDatas = viewModel.records[date], cellDatas.count > indexPath.row else { return UITableViewCell() }
+        guard let cellDatas = viewModel.recordsDic[date], cellDatas.count > indexPath.row else { return UITableViewCell() }
         
-        let cellData = cellDatas[indexPath.row]
-        cell.setupUI(typeId: cellData.typeId, title: cellData.title, price: "\(cellData.price)")
+        let cellData = cellDatas[indexPath.row].fields
+        cell.setupUI(typeID: cellData.typeID, title: cellData.title, price: "\(cellData.price)")
         return cell
     }
     
@@ -97,5 +97,41 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (action, sourceView, completionHandler) in
+            guard let self = self else { return }
+            
+            let date = self.viewModel.dateSection[indexPath.section]
+            if let recordData = self.viewModel.recordsDic[date]?[indexPath.row] {
+                RecordAPIService.share.deleteRecords([recordData.id]) {
+                    DispatchQueue.main.async {
+                        self.viewModel.recordsDic[date]?.remove(at: indexPath.row)
+                        if self.viewModel.recordsDic[date]?.count == 0 {
+                            self.viewModel.dateSection.remove(at: indexPath.section)
+                            UIView.performWithoutAnimation {
+                                self.tableView.beginUpdates()
+                                self.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+                                self.tableView.endUpdates()
+                            }
+                        } else {
+                            UIView.performWithoutAnimation {
+                                self.tableView.beginUpdates()
+                                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                                self.tableView.endUpdates()
+                            }
+                        }
+                        
+                        completionHandler(true)
+                    }
+                }
+            }
+        }
+        
+        deleteAction.image = UIImage(systemName: "trash")
+        let trailingSwipConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return trailingSwipConfiguration
     }
 }

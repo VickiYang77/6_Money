@@ -57,9 +57,9 @@ class AddRecordPageViewController: UIViewController {
             formatter.dateFormat = "yyyy-MM-dd"
             let recordDate = formatter.string(from: datePicker.date)
             
-            let record = RecordModel(title: titleTextField.text ?? "", price: viewModel.priceTotal, date: recordDate, isExpense: 1)
+            let record = RecordFieldsModel(title: titleTextField.text ?? "", price: viewModel.priceTotal, date: recordDate, isExpense: 1)
             
-            let records = InsetRecordRequest(records: [
+            let records = InsertRecordRequest(records: [
                 .init(fields: record)
             ])
             

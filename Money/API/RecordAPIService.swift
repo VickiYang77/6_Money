@@ -20,7 +20,7 @@ class RecordAPIService {
     }
     
     func fetchRecords(completion: @escaping ([RecordModel]) -> Void) {
-        var request = createRequest(url: "?sort[0][field]=date&sort[0][direction]=desc&sort[1][field]=createdTime&sort[1][direction]=desc")
+        var request = createRequest(url: "?sort[0][field]=date&sort[0][direction]=desc&sort[1][field]=updateTime&sort[1][direction]=desc")
         request.httpMethod = "GET"
         
         URLSession.shared.dataTask(with: request) { (data, _, error) in
@@ -30,20 +30,39 @@ class RecordAPIService {
             }
             
             do {
-                let response = try JSONDecoder().decode(FetchRecordResponse.self, from: data)
-                let records = response.records.map { $0.fields }
-                completion(records)
+                let response = try JSONDecoder().decode(RecordsModel.self, from: data)
+                completion(response.records)
             } catch {
                 print("vvv_解析錯誤：\(error)")
             }
         }.resume()
     }
     
-    func insertRecords(_ records: InsetRecordRequest, completion: @escaping () -> Void) {
+    func insertRecords(_ records: InsertRecordRequest, completion: @escaping () -> Void) {
         var request = createRequest()
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try? JSONEncoder().encode(records)
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            guard error == nil else {
+                print("vvv_Error")
+                return
+            }
+            
+            completion()
+        }.resume()
+    }
+    
+    func deleteRecords(_ recordIDs: [String], completion: @escaping () -> Void) {
+        var deleteString = ""
+        
+        recordIDs.forEach { id in
+            deleteString += "records[]=\(id)"
+        }
+        
+        var request = createRequest(url: "?\(deleteString)")
+        request.httpMethod = "DELETE"
+        
         URLSession.shared.dataTask(with: request) { (data, _, error) in
             guard error == nil else {
                 print("vvv_Error")

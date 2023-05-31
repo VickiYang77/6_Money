@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewModel {
     var dateSection: [String] = []
-    var records: [String: [RecordModel]] = [:]
+    var recordsDic: [String: [RecordModel]] = [:]
     
     // MARK: VC binding function
     var reloadData: (() -> ())?
@@ -18,13 +18,19 @@ class HomeViewModel {
     }
     
     func fetchRecords() {
-        RecordAPIService.share.fetchRecords(completion: { [weak self] result in
+        RecordAPIService.share.fetchRecords(completion: { [weak self] recordsModel in
             guard let self = self else { return }
-            self.records = Dictionary(grouping: result) {
-                $0.date
+            
+            self.recordsDic = [:] // reset
+            
+            recordsModel.forEach { record in
+                if self.recordsDic[record.fields.date] == nil {
+                    self.recordsDic[record.fields.date] = []
+                }
+                self.recordsDic[record.fields.date]?.append(record)
             }
             
-            self.dateSection = self.records.keys.sorted(by: >)
+            self.dateSection = self.recordsDic.keys.sorted(by: >)
             
             self.reloadData?()
         })
