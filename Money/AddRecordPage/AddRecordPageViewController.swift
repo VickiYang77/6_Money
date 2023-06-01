@@ -19,7 +19,16 @@ class AddRecordPageViewController: UIViewController {
     @IBOutlet weak var multiplyButton: UIButton!
     @IBOutlet weak var divideButton: UIButton!
     
-    var viewModel = AddRecordPageViewModel()
+    let viewModel: AddRecordPageViewModel
+    
+    init(viewModel: AddRecordPageViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: String(describing: Self.self), bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +47,10 @@ class AddRecordPageViewController: UIViewController {
                     }
             }
         }
+        
+        titleTextField.text = viewModel.titleText
+        priceLabel.text = "$ \(viewModel.priceTotal)"
+        datePicker.date = viewModel.date
     }
     
     @IBAction func clickCalculateBtn(_ sender: UIButton) {
@@ -57,15 +70,27 @@ class AddRecordPageViewController: UIViewController {
             formatter.dateFormat = "yyyy-MM-dd"
             let recordDate = formatter.string(from: datePicker.date)
             
-            let record = RecordFieldsModel(title: titleTextField.text ?? "", price: viewModel.priceTotal, date: recordDate, isExpense: 1)
+            let record = RecordFieldsModel(title: titleTextField.text ?? "", price: viewModel.priceTotal, date: recordDate, typeID: "recBoPXAUe0KzPiW9", isExpense: 1)
             
-            let records = InsertRecordRequest(records: [
-                .init(fields: record)
-            ])
-            
-            RecordAPIService.share.insertRecords(records) { [weak self] in
-                DispatchQueue.main.async {
-                    self?.navigationController?.popViewController(animated: true)
+            if viewModel.id != "" {
+                let records = updateRecordRequest(records: [
+                    .init(id: viewModel.id, fields: record)
+                ])
+                
+                RecordAPIService.share.updateRecords(records) { [weak self] in
+                    DispatchQueue.main.async {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                }
+            } else {
+                let records = InsertRecordRequest(records: [
+                    .init(fields: record)
+                ])
+                
+                RecordAPIService.share.insertRecords(records) { [weak self] in
+                    DispatchQueue.main.async {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
                 }
             }
         default:

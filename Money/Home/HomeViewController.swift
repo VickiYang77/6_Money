@@ -50,7 +50,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func clickAddRecordBtn(_ sender: Any) {
-        let vc = AddRecordPageViewController()
+        let vc = AddRecordPageViewController(viewModel: AddRecordPageViewModel())
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -99,14 +99,23 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return 44
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let date = self.viewModel.dateSection[indexPath.section]
+        if let cellData = self.viewModel.recordsDic[date]?[indexPath.row] {
+            let vm = AddRecordPageViewModel(id: cellData.id, titleText: cellData.fields.title, priceTotal: cellData.fields.price, dateString: cellData.fields.date, typeID: cellData.fields.typeID, isExpense: cellData.fields.isExpense)
+            let vc = AddRecordPageViewController(viewModel: vm)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
         let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (action, sourceView, completionHandler) in
             guard let self = self else { return }
             
             let date = self.viewModel.dateSection[indexPath.section]
-            if let recordData = self.viewModel.recordsDic[date]?[indexPath.row] {
-                RecordAPIService.share.deleteRecords([recordData.id]) {
+            if let cellData = self.viewModel.recordsDic[date]?[indexPath.row] {
+                RecordAPIService.share.deleteRecords([cellData.id]) {
                     DispatchQueue.main.async {
                         self.viewModel.recordsDic[date]?.remove(at: indexPath.row)
                         if self.viewModel.recordsDic[date]?.count == 0 {

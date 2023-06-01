@@ -53,6 +53,21 @@ class RecordAPIService {
         }.resume()
     }
     
+    func updateRecords(_ records: updateRecordRequest, completion: @escaping () -> Void) {
+        var request = createRequest()
+        request.httpMethod = "PATCH"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONEncoder().encode(records)
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            guard error == nil else {
+                print("vvv_Error")
+                return
+            }
+            
+            completion()
+        }.resume()
+    }
+    
     func deleteRecords(_ recordIDs: [String], completion: @escaping () -> Void) {
         var deleteString = ""
         

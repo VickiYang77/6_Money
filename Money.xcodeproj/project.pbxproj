@@ -30,6 +30,7 @@
 		9977D0B82A236885006B9932 /* RecordAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977D0B72A236885006B9932 /* RecordAPIService.swift */; };
 		99D51FCE2A265B9F004811F5 /* InsertRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D51FCD2A265B9F004811F5 /* InsertRecordRequest.swift */; };
 		99D51FD02A265BE6004811F5 /* RecordsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D51FCF2A265BE6004811F5 /* RecordsModel.swift */; };
+		99D51FD22A28F263004811F5 /* updateRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D51FD12A28F263004811F5 /* updateRecordRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		9977D0B72A236885006B9932 /* RecordAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordAPIService.swift; sourceTree = "<group>"; };
 		99D51FCD2A265B9F004811F5 /* InsertRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertRecordRequest.swift; sourceTree = "<group>"; };
 		99D51FCF2A265BE6004811F5 /* RecordsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsModel.swift; sourceTree = "<group>"; };
+		99D51FD12A28F263004811F5 /* updateRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = updateRecordRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			children = (
 				9977D0B72A236885006B9932 /* RecordAPIService.swift */,
 				99D51FCD2A265B9F004811F5 /* InsertRecordRequest.swift */,
+				99D51FD12A28F263004811F5 /* updateRecordRequest.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				996C615D2A0F8AB6008FEC41 /* UIColor+.swift in Sources */,
 				9977D0B02A21E600006B9932 /* AddRecordPageViewController.swift in Sources */,
 				996C61592A0F766C008FEC41 /* HomeViewController.swift in Sources */,
+				99D51FD22A28F263004811F5 /* updateRecordRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

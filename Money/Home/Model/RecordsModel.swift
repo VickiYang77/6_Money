@@ -18,16 +18,14 @@ struct RecordModel: Codable {
 }
 
 struct RecordFieldsModel: Codable {
-    let recordID: String
     let title: String
     let price: Int
     let date: String
-    let typeID: String?
+    let typeID: String
     let isExpense: Int  // Y:支出, N:收入
     let updateTime: String
     
-    init(title: String = "", price: Int, date: String, typeID: String = "", isExpense: Int) {
-        self.recordID = UUID().uuidString
+    init(title: String = "", price: Int = 0, date: String, typeID: String, isExpense: Int = 1) {
         self.title = title
         self.price = price
         self.date = date
