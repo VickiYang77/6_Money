@@ -7,14 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		99529A0C2A10AAD10053E71A /* RecordSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99529A0B2A10AAD10053E71A /* RecordSectionView.swift */; };
-		99529A0E2A10AADA0053E71A /* RecordSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99529A0D2A10AADA0053E71A /* RecordSectionView.xib */; };
 		99529A112A1280DF0053E71A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99529A102A1280DF0053E71A /* HomeViewModel.swift */; };
 		99622B802A23A57100309413 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99622B7F2A23A57100309413 /* HomeView.swift */; };
 		99622B822A23A5A900309413 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99622B812A23A5A900309413 /* HomeView.xib */; };
 		996C61432A0F7166008FEC41 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61422A0F7166008FEC41 /* AppDelegate.swift */; };
 		996C61452A0F7166008FEC41 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61442A0F7166008FEC41 /* SceneDelegate.swift */; };
-		996C61472A0F7166008FEC41 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61462A0F7166008FEC41 /* ViewController.swift */; };
 		996C614A2A0F7166008FEC41 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 996C61482A0F7166008FEC41 /* Main.storyboard */; };
 		996C614C2A0F7169008FEC41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 996C614B2A0F7169008FEC41 /* Assets.xcassets */; };
 		996C614F2A0F7169008FEC41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 996C614D2A0F7169008FEC41 /* LaunchScreen.storyboard */; };
@@ -22,8 +19,6 @@
 		996C615B2A0F7680008FEC41 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 996C615A2A0F7680008FEC41 /* HomeViewController.xib */; };
 		996C615D2A0F8AB6008FEC41 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C615C2A0F8AB6008FEC41 /* UIColor+.swift */; };
 		996C61602A0F8CD4008FEC41 /* ExtensionHepler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C615F2A0F8CD4008FEC41 /* ExtensionHepler.swift */; };
-		996C61622A0F9F3F008FEC41 /* RecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 996C61612A0F9F3F008FEC41 /* RecordTableViewCell.xib */; };
-		996C61642A0FA3D0008FEC41 /* RecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61632A0FA3D0008FEC41 /* RecordTableViewCell.swift */; };
 		9977D0B02A21E600006B9932 /* AddRecordPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977D0AE2A21E600006B9932 /* AddRecordPageViewController.swift */; };
 		9977D0B12A21E600006B9932 /* AddRecordPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9977D0AF2A21E600006B9932 /* AddRecordPageViewController.xib */; };
 		9977D0B32A223886006B9932 /* AddRecordPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977D0B22A223886006B9932 /* AddRecordPageViewModel.swift */; };
@@ -31,18 +26,22 @@
 		99D51FCE2A265B9F004811F5 /* InsertRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D51FCD2A265B9F004811F5 /* InsertRecordRequest.swift */; };
 		99D51FD02A265BE6004811F5 /* RecordsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D51FCF2A265BE6004811F5 /* RecordsModel.swift */; };
 		99D51FD22A28F263004811F5 /* updateRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D51FD12A28F263004811F5 /* updateRecordRequest.swift */; };
+		99F0B37D2A2CF87C00C66ADD /* RecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99F0B3792A2CF87C00C66ADD /* RecordTableViewCell.xib */; };
+		99F0B37E2A2CF87C00C66ADD /* RecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F0B37A2A2CF87C00C66ADD /* RecordTableViewCell.swift */; };
+		99F0B37F2A2CF87C00C66ADD /* RecordSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99F0B37B2A2CF87C00C66ADD /* RecordSectionView.xib */; };
+		99F0B3802A2CF87C00C66ADD /* RecordSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F0B37C2A2CF87C00C66ADD /* RecordSectionView.swift */; };
+		99F0B3822A2CF8D200C66ADD /* TypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F0B3812A2CF8D200C66ADD /* TypeCollectionViewCell.swift */; };
+		99F0B3842A2CF8DC00C66ADD /* TypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99F0B3832A2CF8DC00C66ADD /* TypeCollectionViewCell.xib */; };
+		99F0B3872A2F7E7C00C66ADD /* RecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F0B3862A2F7E7C00C66ADD /* RecordType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		99529A0B2A10AAD10053E71A /* RecordSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordSectionView.swift; sourceTree = "<group>"; };
-		99529A0D2A10AADA0053E71A /* RecordSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordSectionView.xib; sourceTree = "<group>"; };
 		99529A102A1280DF0053E71A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		99622B7F2A23A57100309413 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		99622B812A23A5A900309413 /* HomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeView.xib; sourceTree = "<group>"; };
 		996C613F2A0F7166008FEC41 /* Money.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Money.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		996C61422A0F7166008FEC41 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		996C61442A0F7166008FEC41 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		996C61462A0F7166008FEC41 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		996C61492A0F7166008FEC41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		996C614B2A0F7169008FEC41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		996C614E2A0F7169008FEC41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,8 +50,6 @@
 		996C615A2A0F7680008FEC41 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		996C615C2A0F8AB6008FEC41 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		996C615F2A0F8CD4008FEC41 /* ExtensionHepler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionHepler.swift; sourceTree = "<group>"; };
-		996C61612A0F9F3F008FEC41 /* RecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordTableViewCell.xib; sourceTree = "<group>"; };
-		996C61632A0FA3D0008FEC41 /* RecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTableViewCell.swift; sourceTree = "<group>"; };
 		9977D0AE2A21E600006B9932 /* AddRecordPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPageViewController.swift; sourceTree = "<group>"; };
 		9977D0AF2A21E600006B9932 /* AddRecordPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRecordPageViewController.xib; sourceTree = "<group>"; };
 		9977D0B22A223886006B9932 /* AddRecordPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPageViewModel.swift; sourceTree = "<group>"; };
@@ -60,6 +57,13 @@
 		99D51FCD2A265B9F004811F5 /* InsertRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertRecordRequest.swift; sourceTree = "<group>"; };
 		99D51FCF2A265BE6004811F5 /* RecordsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsModel.swift; sourceTree = "<group>"; };
 		99D51FD12A28F263004811F5 /* updateRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = updateRecordRequest.swift; sourceTree = "<group>"; };
+		99F0B3792A2CF87C00C66ADD /* RecordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordTableViewCell.xib; sourceTree = "<group>"; };
+		99F0B37A2A2CF87C00C66ADD /* RecordTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordTableViewCell.swift; sourceTree = "<group>"; };
+		99F0B37B2A2CF87C00C66ADD /* RecordSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordSectionView.xib; sourceTree = "<group>"; };
+		99F0B37C2A2CF87C00C66ADD /* RecordSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSectionView.swift; sourceTree = "<group>"; };
+		99F0B3812A2CF8D200C66ADD /* TypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCollectionViewCell.swift; sourceTree = "<group>"; };
+		99F0B3832A2CF8DC00C66ADD /* TypeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypeCollectionViewCell.xib; sourceTree = "<group>"; };
+		99F0B3862A2F7E7C00C66ADD /* RecordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +80,6 @@
 		99529A0F2A1280A70053E71A /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				9977D0B42A236445006B9932 /* Model */,
 				996C61582A0F766B008FEC41 /* HomeViewController.swift */,
 				996C615A2A0F7680008FEC41 /* HomeViewController.xib */,
 				99529A102A1280DF0053E71A /* HomeViewModel.swift */,
@@ -116,15 +119,17 @@
 			children = (
 				99529A0F2A1280A70053E71A /* Home */,
 				9977D0AD2A21E4FD006B9932 /* AddRecordPage */,
+				9977D0B42A236445006B9932 /* Model */,
+				99F0B3782A2CF87C00C66ADD /* View */,
 				996C615E2A0F8AB9008FEC41 /* Helper */,
 				99626E582A26534C00BDE238 /* API */,
 				996C61422A0F7166008FEC41 /* AppDelegate.swift */,
-				996C61442A0F7166008FEC41 /* SceneDelegate.swift */,
-				996C61462A0F7166008FEC41 /* ViewController.swift */,
-				996C61482A0F7166008FEC41 /* Main.storyboard */,
 				996C614B2A0F7169008FEC41 /* Assets.xcassets */,
-				996C614D2A0F7169008FEC41 /* LaunchScreen.storyboard */,
 				996C61502A0F7169008FEC41 /* Info.plist */,
+				996C614D2A0F7169008FEC41 /* LaunchScreen.storyboard */,
+				996C61482A0F7166008FEC41 /* Main.storyboard */,
+				996C61442A0F7166008FEC41 /* SceneDelegate.swift */,
+				99F0B3862A2F7E7C00C66ADD /* RecordType.swift */,
 			);
 			path = Money;
 			sourceTree = "<group>";
@@ -134,10 +139,6 @@
 			children = (
 				99622B7F2A23A57100309413 /* HomeView.swift */,
 				99622B812A23A5A900309413 /* HomeView.xib */,
-				99529A0B2A10AAD10053E71A /* RecordSectionView.swift */,
-				99529A0D2A10AADA0053E71A /* RecordSectionView.xib */,
-				996C61632A0FA3D0008FEC41 /* RecordTableViewCell.swift */,
-				996C61612A0F9F3F008FEC41 /* RecordTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -167,6 +168,19 @@
 				99D51FCF2A265BE6004811F5 /* RecordsModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		99F0B3782A2CF87C00C66ADD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				99F0B3792A2CF87C00C66ADD /* RecordTableViewCell.xib */,
+				99F0B37A2A2CF87C00C66ADD /* RecordTableViewCell.swift */,
+				99F0B37B2A2CF87C00C66ADD /* RecordSectionView.xib */,
+				99F0B37C2A2CF87C00C66ADD /* RecordSectionView.swift */,
+				99F0B3812A2CF8D200C66ADD /* TypeCollectionViewCell.swift */,
+				99F0B3832A2CF8DC00C66ADD /* TypeCollectionViewCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,12 +242,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				996C614F2A0F7169008FEC41 /* LaunchScreen.storyboard in Resources */,
+				99F0B3842A2CF8DC00C66ADD /* TypeCollectionViewCell.xib in Resources */,
 				99622B822A23A5A900309413 /* HomeView.xib in Resources */,
 				9977D0B12A21E600006B9932 /* AddRecordPageViewController.xib in Resources */,
+				99F0B37D2A2CF87C00C66ADD /* RecordTableViewCell.xib in Resources */,
 				996C614C2A0F7169008FEC41 /* Assets.xcassets in Resources */,
+				99F0B37F2A2CF87C00C66ADD /* RecordSectionView.xib in Resources */,
 				996C614A2A0F7166008FEC41 /* Main.storyboard in Resources */,
-				99529A0E2A10AADA0053E71A /* RecordSectionView.xib in Resources */,
-				996C61622A0F9F3F008FEC41 /* RecordTableViewCell.xib in Resources */,
 				996C615B2A0F7680008FEC41 /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,22 +260,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				996C61472A0F7166008FEC41 /* ViewController.swift in Sources */,
+				99F0B3822A2CF8D200C66ADD /* TypeCollectionViewCell.swift in Sources */,
+				99F0B3802A2CF87C00C66ADD /* RecordSectionView.swift in Sources */,
 				99622B802A23A57100309413 /* HomeView.swift in Sources */,
 				99529A112A1280DF0053E71A /* HomeViewModel.swift in Sources */,
 				996C61432A0F7166008FEC41 /* AppDelegate.swift in Sources */,
-				996C61642A0FA3D0008FEC41 /* RecordTableViewCell.swift in Sources */,
 				9977D0B32A223886006B9932 /* AddRecordPageViewModel.swift in Sources */,
 				996C61452A0F7166008FEC41 /* SceneDelegate.swift in Sources */,
 				99D51FCE2A265B9F004811F5 /* InsertRecordRequest.swift in Sources */,
 				996C61602A0F8CD4008FEC41 /* ExtensionHepler.swift in Sources */,
-				99529A0C2A10AAD10053E71A /* RecordSectionView.swift in Sources */,
+				99F0B37E2A2CF87C00C66ADD /* RecordTableViewCell.swift in Sources */,
 				9977D0B82A236885006B9932 /* RecordAPIService.swift in Sources */,
 				99D51FD02A265BE6004811F5 /* RecordsModel.swift in Sources */,
 				996C615D2A0F8AB6008FEC41 /* UIColor+.swift in Sources */,
 				9977D0B02A21E600006B9932 /* AddRecordPageViewController.swift in Sources */,
 				996C61592A0F766C008FEC41 /* HomeViewController.swift in Sources */,
 				99D51FD22A28F263004811F5 /* updateRecordRequest.swift in Sources */,
+				99F0B3872A2F7E7C00C66ADD /* RecordType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

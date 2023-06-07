@@ -1,13 +1,11 @@
 //
-//  RecordTableViewCell.swift
+//  RecordType.swift
 //  Money
 //
-//  Created by Vicki Yang on 2023/5/14.
+//  Created by Vicki Yang on 2023/6/6.
 //
 
-import UIKit
-
-enum recordType {
+enum RecordType {
     case none
     case dailyNecessities
     case breakfast
@@ -32,20 +30,5 @@ enum recordType {
         case .transportation:       return "tram"
         case .gift:                 return "gift"
         }
-    }
-}
-
-class RecordTableViewCell: UITableViewCell {
-    @IBOutlet weak var typeImageView: UIImageView!
-    @IBOutlet weak var recordLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
-    
-    func setupUI(typeID: String? = "", title: String, price: String) {
-        typeImageView.image = (typeID == nil || typeID == "") ? UIImage(systemName: recordType.none.icon) : UIImage(systemName: recordType.gift.icon)
-        recordLabel.text = title
-        priceLabel.text = "$\(price)"
-        
-        layer.borderColor = UIColor.gray.cgColor
-        layer.borderWidth = 1.0
     }
 }

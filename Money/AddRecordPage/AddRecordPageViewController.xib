@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddRecordPageViewController" customModule="Money" customModuleProvider="target">
             <connections>
                 <outlet property="calculateStackView" destination="2Th-fK-ams" id="IAk-KS-Ac4"/>
+                <outlet property="collectionView" destination="d9s-nl-Dtm" id="SB6-1T-8dI"/>
                 <outlet property="datePicker" destination="61D-R6-KvG" id="b0C-Fm-YSX"/>
                 <outlet property="divideButton" destination="mZC-T0-3d3" id="IIe-Ve-bI2"/>
                 <outlet property="minusButton" destination="tyt-7s-LMh" id="BdA-fK-PcQ"/>
@@ -31,16 +32,28 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="svj-aq-IKc">
                     <rect key="frame" x="0.0" y="59" width="393" height="655.33333333333337"/>
                     <subviews>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="d9s-nl-Dtm">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H7r-7p-zkx">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="262"/>
+                            <subviews>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="d9s-nl-Dtm">
+                                    <rect key="frame" x="10" y="10" width="373" height="252"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NhC-Iv-7JF">
+                                        <size key="itemSize" width="128" height="128"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                </collectionView>
+                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NhC-Iv-7JF">
-                                <size key="itemSize" width="128" height="128"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            </collectionViewFlowLayout>
-                        </collectionView>
+                            <constraints>
+                                <constraint firstItem="d9s-nl-Dtm" firstAttribute="leading" secondItem="H7r-7p-zkx" secondAttribute="leading" constant="10" id="KL5-hj-E73"/>
+                                <constraint firstAttribute="trailing" secondItem="d9s-nl-Dtm" secondAttribute="trailing" constant="10" id="Lly-Jy-Bws"/>
+                                <constraint firstAttribute="bottom" secondItem="d9s-nl-Dtm" secondAttribute="bottom" id="MWW-kS-QsX"/>
+                                <constraint firstItem="d9s-nl-Dtm" firstAttribute="top" secondItem="H7r-7p-zkx" secondAttribute="top" constant="10" id="hgX-ex-mux"/>
+                            </constraints>
+                        </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cVj-fr-IFE">
                             <rect key="frame" x="0.0" y="262" width="393" height="393.33333333333326"/>
                             <subviews>
@@ -402,7 +415,7 @@
                         </stackView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="d9s-nl-Dtm" firstAttribute="height" secondItem="svj-aq-IKc" secondAttribute="height" multiplier="0.4" id="YRf-Nx-0Lg"/>
+                        <constraint firstItem="H7r-7p-zkx" firstAttribute="height" secondItem="svj-aq-IKc" secondAttribute="height" multiplier="0.4" id="jvE-87-xCx"/>
                     </constraints>
                 </stackView>
             </subviews>

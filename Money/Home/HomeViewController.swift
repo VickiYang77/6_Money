@@ -33,6 +33,10 @@ class HomeViewController: UIViewController {
         navigationItem.title = "Money Note"
         navigationController?.navigationBar.addBottomSeparator()
         
+        let backBtn = UIBarButtonItem()
+        backBtn.title = ""
+        navigationItem.backBarButtonItem = backBtn
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(RecordSectionView.nib(), forHeaderFooterViewReuseIdentifier: RecordSectionView.identifier)
@@ -72,7 +76,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         let date = viewModel.dateSection[section]
         let total = viewModel.recordsDic[date]?.reduce(0, { $0 + $1.fields.price}) ?? 0
-        sectionView.setupUI(date: date, total: "\(total)")
+        sectionView.setup(date: date, total: "\(total)")
         return sectionView
     }
     

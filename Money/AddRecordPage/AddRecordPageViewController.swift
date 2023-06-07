@@ -8,6 +8,7 @@
 import UIKit
 
 class AddRecordPageViewController: UIViewController {
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var calculateStackView: UIStackView!
@@ -36,6 +37,8 @@ class AddRecordPageViewController: UIViewController {
     }
     
     private func setupUI() {
+        navigationController?.navigationBar.tintColor = .black
+        
         calculateStackView.arrangedSubviews.forEach { subview in
             if let stackView = subview as? UIStackView {
                 stackView.arrangedSubviews.compactMap({ $0 as? UIButton })
@@ -51,7 +54,28 @@ class AddRecordPageViewController: UIViewController {
         titleTextField.text = viewModel.titleText
         priceLabel.text = "$ \(viewModel.priceTotal)"
         datePicker.date = viewModel.date
+        
+        setupCollectionView()
     }
+    
+    func setupCollectionView() {
+        collectionView.register(TypeCollectionViewCell.nib(), forCellWithReuseIdentifier: TypeCollectionViewCell.identifier)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        let itemSpace: Double = 5
+        let horizontalCount: Double = 4
+        let verticalCount: Double = 3
+        let width = floor((collectionView.bounds.size.width - itemSpace * (horizontalCount-1)) / horizontalCount)
+        let height = floor((collectionView.bounds.size.height - itemSpace * verticalCount) / verticalCount)
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: width, height: height)
+        layout.estimatedItemSize = .zero
+        layout.minimumInteritemSpacing = itemSpace
+        layout.minimumLineSpacing = itemSpace
+        collectionView.setCollectionViewLayout(layout, animated: false)
+    }
+
     
     @IBAction func clickCalculateBtn(_ sender: UIButton) {
         let btnTag = sender.tag
@@ -96,5 +120,17 @@ class AddRecordPageViewController: UIViewController {
         default:
             return
         }
+    }
+}
+
+extension AddRecordPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TypeCollectionViewCell.identifier, for: indexPath) as! TypeCollectionViewCell
+        cell.setup(type: .none, title: "早餐")
+        return cell
     }
 }
