@@ -9,6 +9,7 @@ import UIKit
 
 class AddRecordPageViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var typeImageView: UIImageView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var calculateStackView: UIStackView!
@@ -68,6 +69,9 @@ class AddRecordPageViewController: UIViewController {
         viewModel.reloadData = { [weak self] in
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
+                if let type = self?.viewModel.types.first(where: { $0.fields.typeID == self?.viewModel.typeID}) {
+                    self?.typeImageView.image = UIImage(systemName: type.fields.icon)
+                }
             }
         }
     }
@@ -110,9 +114,9 @@ class AddRecordPageViewController: UIViewController {
             
             let record = RecordFieldsModel(title: titleTextField.text ?? "", price: viewModel.priceTotal, date: recordDate, typeID: "recBoPXAUe0KzPiW9", isExpense: 1)
             
-            if viewModel.id != "" {
+            if viewModel.recordID != "" {
                 let records = updateRecordRequest(records: [
-                    .init(id: viewModel.id, fields: record)
+                    .init(id: viewModel.recordID, fields: record)
                 ])
                 
                 APIService.share.updateRecords(records) { [weak self] in
@@ -150,5 +154,11 @@ extension AddRecordPageViewController: UICollectionViewDelegate, UICollectionVie
         let data = viewModel.types[indexPath.row].fields
         cell.setup(name: data.name, image: data.icon)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cellData = viewModel.types[indexPath.row].fields
+        typeImageView.image = UIImage(systemName: cellData.icon)
+        viewModel.typeID = cellData.typeID
     }
 }

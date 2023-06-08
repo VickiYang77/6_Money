@@ -21,6 +21,7 @@
                 <outlet property="plusButton" destination="XZT-8U-lP0" id="uGd-YW-YfX"/>
                 <outlet property="priceLabel" destination="loO-M0-PkP" id="1bi-ta-i7Z"/>
                 <outlet property="titleTextField" destination="lLv-gJ-0F8" id="5jy-wZ-FOx"/>
+                <outlet property="typeImageView" destination="Ufp-GI-XYn" id="LMF-Qm-iNY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -70,7 +71,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="B2q-vz-6xY">
                                             <rect key="frame" x="8" y="8" width="377" height="44"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollarsign.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ufp-GI-XYn">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollarsign.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ufp-GI-XYn" userLabel="type Image View">
                                                     <rect key="frame" x="10" y="3" width="40" height="38.666666666666671"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>

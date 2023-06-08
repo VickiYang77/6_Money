@@ -42,7 +42,7 @@ class HomeViewController: UIViewController {
         tableView.register(RecordSectionView.nib(), forHeaderFooterViewReuseIdentifier: RecordSectionView.identifier)
         tableView.register(RecordTableViewCell.nib(), forCellReuseIdentifier: RecordTableViewCell.identifier)
         
-        tableView.tableHeaderView = self.homeView
+        tableView.tableHeaderView = homeView
     }
     
     private func bindViewModel() {
@@ -104,9 +104,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let date = self.viewModel.dateSection[indexPath.section]
-        if let cellData = self.viewModel.recordsDic[date]?[indexPath.row] {
-            let vm = AddRecordPageViewModel(id: cellData.id, titleText: cellData.fields.title, priceTotal: cellData.fields.price, dateString: cellData.fields.date, typeID: cellData.fields.typeID, isExpense: cellData.fields.isExpense)
+        let date = viewModel.dateSection[indexPath.section]
+        if let cellData = viewModel.recordsDic[date]?[indexPath.row] {
+            let vm = AddRecordPageViewModel(recordID: cellData.id, titleText: cellData.fields.title, priceTotal: cellData.fields.price, dateString: cellData.fields.date, typeID: cellData.fields.typeID, isExpense: cellData.fields.isExpense)
             let vc = AddRecordPageViewController(viewModel: vm)
             navigationController?.pushViewController(vc, animated: true)
         }

@@ -9,7 +9,7 @@ import UIKit
 
 class AddRecordPageViewModel {
     var types: [TypeModel] = []
-    var id: String
+    var recordID: String
     var titleText: String
     var priceTotal: Int
     var date: Date
@@ -22,8 +22,8 @@ class AddRecordPageViewModel {
     // MARK: VC binding function
     var reloadData: (() -> ())?
     
-    init(id: String = "", titleText: String = "", priceTotal: Int = 0, dateString: String = "", typeID: String = "", isExpense: Int = 1) {
-        self.id = id
+    init(recordID: String = "", titleText: String = "", priceTotal: Int = 0, dateString: String = "", typeID: String = "", isExpense: Int = 1) {
+        self.recordID = recordID
         self.titleText = titleText
         self.priceTotal = priceTotal
 
