@@ -8,13 +8,12 @@
 import UIKit
 
 class AddRecordPageViewModel {
-    var types: [TypeModel] = []
     var recordID: String
     var titleText: String
     var priceTotal: Int
     var date: Date
-    var typeID: String
     let isExpense: Int
+    var type: TypeModel
     
     // 91除, 92乘, 93加, 94減
     var currentOperatorTag = 0
@@ -30,15 +29,8 @@ class AddRecordPageViewModel {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         self.date = dateFormatter.date(from: dateString) ?? Date()
-        self.typeID = typeID
         self.isExpense = isExpense
-    }
-    
-    func fetchTypes() {
-        APIService.share.fetchTypes(completion: { [weak self] typesModel in
-            guard let self = self else { return }
-            self.types = typesModel
-            self.reloadData?()
-        })
+        
+        self.type = kAM.share.types.first(where: { $0.fields.typeID == typeID}) ?? kAM.share.types.first!
     }
 }

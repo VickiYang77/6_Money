@@ -23,6 +23,7 @@
 		9977D0B12A21E600006B9932 /* AddRecordPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9977D0AF2A21E600006B9932 /* AddRecordPageViewController.xib */; };
 		9977D0B32A223886006B9932 /* AddRecordPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977D0B22A223886006B9932 /* AddRecordPageViewModel.swift */; };
 		9977D0B82A236885006B9932 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977D0B72A236885006B9932 /* APIService.swift */; };
+		99B223C02A31FD4C00F08F94 /* ApplicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B223BF2A31FD4C00F08F94 /* ApplicationManager.swift */; };
 		99D51FCE2A265B9F004811F5 /* InsertRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D51FCD2A265B9F004811F5 /* InsertRequest.swift */; };
 		99D51FD02A265BE6004811F5 /* RecordsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D51FCF2A265BE6004811F5 /* RecordsModel.swift */; };
 		99D51FD22A28F263004811F5 /* updateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D51FD12A28F263004811F5 /* updateRequest.swift */; };
@@ -55,6 +56,7 @@
 		9977D0AF2A21E600006B9932 /* AddRecordPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRecordPageViewController.xib; sourceTree = "<group>"; };
 		9977D0B22A223886006B9932 /* AddRecordPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordPageViewModel.swift; sourceTree = "<group>"; };
 		9977D0B72A236885006B9932 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		99B223BF2A31FD4C00F08F94 /* ApplicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationManager.swift; sourceTree = "<group>"; };
 		99D51FCD2A265B9F004811F5 /* InsertRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertRequest.swift; sourceTree = "<group>"; };
 		99D51FCF2A265BE6004811F5 /* RecordsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsModel.swift; sourceTree = "<group>"; };
 		99D51FD12A28F263004811F5 /* updateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = updateRequest.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		996C615E2A0F8AB9008FEC41 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				99B223BF2A31FD4C00F08F94 /* ApplicationManager.swift */,
 				996C615C2A0F8AB6008FEC41 /* UIColor+.swift */,
 				996C615F2A0F8CD4008FEC41 /* ExtensionHepler.swift */,
 			);
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99F0B3822A2CF8D200C66ADD /* TypeCollectionViewCell.swift in Sources */,
+				99B223C02A31FD4C00F08F94 /* ApplicationManager.swift in Sources */,
 				99F0B3802A2CF87C00C66ADD /* RecordSectionView.swift in Sources */,
 				99622B802A23A57100309413 /* HomeView.swift in Sources */,
 				99529A112A1280DF0053E71A /* HomeViewModel.swift in Sources */,

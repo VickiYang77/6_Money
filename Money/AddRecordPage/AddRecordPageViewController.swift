@@ -40,7 +40,6 @@ class AddRecordPageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.fetchTypes()
     }
     
     private func setupUI() {
@@ -61,17 +60,16 @@ class AddRecordPageViewController: UIViewController {
         titleTextField.text = viewModel.titleText
         priceLabel.text = "$ \(viewModel.priceTotal)"
         datePicker.date = viewModel.date
+        typeImageView.image = UIImage(systemName: viewModel.type.fields.icon)
         
         setupCollectionView()
+        
     }
     
     private func bindViewModel() {
         viewModel.reloadData = { [weak self] in
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
-                if let type = self?.viewModel.types.first(where: { $0.fields.typeID == self?.viewModel.typeID}) {
-                    self?.typeImageView.image = UIImage(systemName: type.fields.icon)
-                }
             }
         }
     }
@@ -143,22 +141,21 @@ class AddRecordPageViewController: UIViewController {
 
 extension AddRecordPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.types.count
+        return  kAM.share.types.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TypeCollectionViewCell.identifier, for: indexPath) as! TypeCollectionViewCell
         
-        guard viewModel.types.count > indexPath.row else { return UICollectionViewCell() }
+        guard kAM.share.types.count > indexPath.row else { return UICollectionViewCell() }
         
-        let data = viewModel.types[indexPath.row].fields
+        let data =  kAM.share.types[indexPath.row].fields
         cell.setup(name: data.name, image: data.icon)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cellData = viewModel.types[indexPath.row].fields
-        typeImageView.image = UIImage(systemName: cellData.icon)
-        viewModel.typeID = cellData.typeID
+        viewModel.type =  kAM.share.types[indexPath.row]
+        typeImageView.image = UIImage(systemName: viewModel.type.fields.icon)
     }
 }
