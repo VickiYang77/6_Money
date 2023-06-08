@@ -11,8 +11,8 @@ class TypeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var typeLabel: UILabel!
     
-    func setup(type: RecordType, title: String) {
-        self.imageView.image = UIImage(systemName: type.icon)
-        self.typeLabel.text = title
+    func setup(name: String, image: String) {
+        self.imageView.image = UIImage(systemName: image)
+        self.typeLabel.text = name
     }
 }

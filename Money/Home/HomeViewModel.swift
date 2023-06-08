@@ -14,11 +14,8 @@ class HomeViewModel {
     // MARK: VC binding function
     var reloadData: (() -> ())?
     
-    init() {
-    }
-    
     func fetchRecords() {
-        RecordAPIService.share.fetchRecords(completion: { [weak self] recordsModel in
+        APIService.share.fetchRecords(completion: { [weak self] recordsModel in
             guard let self = self else { return }
             
             self.recordsDic = [:] // reset

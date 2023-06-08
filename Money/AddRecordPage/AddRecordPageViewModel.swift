@@ -8,6 +8,7 @@
 import UIKit
 
 class AddRecordPageViewModel {
+    var types: [TypeModel] = []
     var id: String
     var titleText: String
     var priceTotal: Int
@@ -17,6 +18,9 @@ class AddRecordPageViewModel {
     
     // 91除, 92乘, 93加, 94減
     var currentOperatorTag = 0
+    
+    // MARK: VC binding function
+    var reloadData: (() -> ())?
     
     init(id: String = "", titleText: String = "", priceTotal: Int = 0, dateString: String = "", typeID: String = "", isExpense: Int = 1) {
         self.id = id
@@ -28,5 +32,13 @@ class AddRecordPageViewModel {
         self.date = dateFormatter.date(from: dateString) ?? Date()
         self.typeID = typeID
         self.isExpense = isExpense
+    }
+    
+    func fetchTypes() {
+        APIService.share.fetchTypes(completion: { [weak self] typesModel in
+            guard let self = self else { return }
+            self.types = typesModel
+            self.reloadData?()
+        })
     }
 }

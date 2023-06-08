@@ -119,7 +119,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             
             let date = self.viewModel.dateSection[indexPath.section]
             if let cellData = self.viewModel.recordsDic[date]?[indexPath.row] {
-                RecordAPIService.share.deleteRecords([cellData.id]) {
+                APIService.share.deleteRecords([cellData.id]) {
                     DispatchQueue.main.async {
                         self.viewModel.recordsDic[date]?.remove(at: indexPath.row)
                         if self.viewModel.recordsDic[date]?.count == 0 {

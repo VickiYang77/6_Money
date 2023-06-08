@@ -34,6 +34,12 @@ class AddRecordPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        bindViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchTypes()
     }
     
     private func setupUI() {
@@ -56,6 +62,14 @@ class AddRecordPageViewController: UIViewController {
         datePicker.date = viewModel.date
         
         setupCollectionView()
+    }
+    
+    private func bindViewModel() {
+        viewModel.reloadData = { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
     }
     
     func setupCollectionView() {
@@ -101,7 +115,7 @@ class AddRecordPageViewController: UIViewController {
                     .init(id: viewModel.id, fields: record)
                 ])
                 
-                RecordAPIService.share.updateRecords(records) { [weak self] in
+                APIService.share.updateRecords(records) { [weak self] in
                     DispatchQueue.main.async {
                         self?.navigationController?.popViewController(animated: true)
                     }
@@ -111,7 +125,7 @@ class AddRecordPageViewController: UIViewController {
                     .init(fields: record)
                 ])
                 
-                RecordAPIService.share.insertRecords(records) { [weak self] in
+                APIService.share.insertRecords(records) { [weak self] in
                     DispatchQueue.main.async {
                         self?.navigationController?.popViewController(animated: true)
                     }
@@ -125,12 +139,16 @@ class AddRecordPageViewController: UIViewController {
 
 extension AddRecordPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return viewModel.types.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TypeCollectionViewCell.identifier, for: indexPath) as! TypeCollectionViewCell
-        cell.setup(type: .none, title: "早餐")
+        
+        guard viewModel.types.count > indexPath.row else { return UICollectionViewCell() }
+        
+        let data = viewModel.types[indexPath.row].fields
+        cell.setup(name: data.name, image: data.icon)
         return cell
     }
 }
