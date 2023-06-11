@@ -105,12 +105,13 @@ class EditRecordViewController: UIViewController {
             sender.backgroundColor = .topicRed
             viewModel.currentOperatorTag = btnTag
             
+        // Save
         case 999:
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             let recordDate = formatter.string(from: datePicker.date)
             
-            let record = RecordFieldsModel(title: titleTextField.text ?? "", price: viewModel.priceTotal, date: recordDate, typeID: "recBoPXAUe0KzPiW9", isExpense: 1)
+            let record = RecordFieldsModel(title: titleTextField.text ?? "", price: viewModel.priceTotal, date: recordDate, typeID: viewModel.type.fields.typeID, isExpense: 1)
             
             if viewModel.recordID != "" {
                 let records = updateRecordRequest(records: [
