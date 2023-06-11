@@ -54,7 +54,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func clickAddRecordBtn(_ sender: Any) {
-        let vc = AddRecordPageViewController(viewModel: AddRecordPageViewModel())
+        let vc = EditRecordViewController(viewModel: EditRecordViewModel())
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -87,7 +87,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cellDatas = viewModel.recordsDic[date], cellDatas.count > indexPath.row else { return UITableViewCell() }
         
         let cellData = cellDatas[indexPath.row].fields
-        cell.setupUI(typeID: cellData.typeID, title: cellData.title, price: "\(cellData.price)", image: cellData.typeID)
+        cell.setupUI(typeID: cellData.typeID, title: cellData.title, price: "\(cellData.price)")
         return cell
     }
     
@@ -106,8 +106,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let date = viewModel.dateSection[indexPath.section]
         if let cellData = viewModel.recordsDic[date]?[indexPath.row] {
-            let vm = AddRecordPageViewModel(recordID: cellData.id, titleText: cellData.fields.title, priceTotal: cellData.fields.price, dateString: cellData.fields.date, typeID: cellData.fields.typeID, isExpense: cellData.fields.isExpense)
-            let vc = AddRecordPageViewController(viewModel: vm)
+            let vm = EditRecordViewModel(recordID: cellData.id, titleText: cellData.fields.title, priceTotal: cellData.fields.price, dateString: cellData.fields.date, typeID: cellData.fields.typeID, isExpense: cellData.fields.isExpense)
+            let vc = EditRecordViewController(viewModel: vm)
             navigationController?.pushViewController(vc, animated: true)
         }
     }

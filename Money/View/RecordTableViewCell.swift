@@ -12,8 +12,10 @@ class RecordTableViewCell: UITableViewCell {
     @IBOutlet weak var recordLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
-    func setupUI(typeID: String? = "", title: String, price: String, image: String) {
-        typeImageView.image = (typeID != nil && typeID == "") ? UIImage(systemName: image) : RecordTypeImage.none.getImage()
+    func setupUI(typeID: String = "", title: String, price: String) {
+        
+        let type = kAM.share.getTypeWithId(typeID)
+        typeImageView.image = UIImage(systemName: type.fields.icon)
         recordLabel.text = title
         priceLabel.text = "$\(price)"
         

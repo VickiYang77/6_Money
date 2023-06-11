@@ -1,5 +1,5 @@
 //
-//  AddRecordPageViewModel.swift
+//  EditRecordViewModel.swift
 //  Money
 //
 //  Created by Vicki Yang on 2023/5/27.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddRecordPageViewModel {
+class EditRecordViewModel {
     var recordID: String
     var titleText: String
     var priceTotal: Int

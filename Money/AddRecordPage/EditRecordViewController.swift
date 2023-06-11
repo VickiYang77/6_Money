@@ -1,5 +1,5 @@
 //
-//  AddRecordPageViewController.swift
+//  EditRecordViewController.swift
 //  Money
 //
 //  Created by Vicki Yang on 2023/5/27.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddRecordPageViewController: UIViewController {
+class EditRecordViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var typeImageView: UIImageView!
     @IBOutlet weak var titleTextField: UITextField!
@@ -21,9 +21,9 @@ class AddRecordPageViewController: UIViewController {
     @IBOutlet weak var multiplyButton: UIButton!
     @IBOutlet weak var divideButton: UIButton!
     
-    let viewModel: AddRecordPageViewModel
+    let viewModel: EditRecordViewModel
     
-    init(viewModel: AddRecordPageViewModel) {
+    init(viewModel: EditRecordViewModel) {
         self.viewModel = viewModel
         super.init(nibName: String(describing: Self.self), bundle: nil)
     }
@@ -139,7 +139,7 @@ class AddRecordPageViewController: UIViewController {
     }
 }
 
-extension AddRecordPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension EditRecordViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return  kAM.share.types.count
     }
