@@ -3,25 +3,107 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeView" customModule="Money" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeView" customModule="Money" customModuleProvider="target">
+            <connections>
+                <outlet property="budgetLabel" destination="U3N-dS-saT" id="gke-pj-JE2"/>
+                <outlet property="expenseLabel" destination="MKZ-Wc-XQd" id="3kP-Wc-0Jf"/>
+                <outlet property="percentRingView" destination="uf0-jW-k0j" id="gtE-UG-1HF"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="314" height="221"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="1t5-aM-INk">
+                    <rect key="frame" x="0.0" y="0.0" width="314" height="221"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oBA-m0-6KL">
+                            <rect key="frame" x="0.0" y="0.0" width="314" height="50"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="PVV-vI-56K" userLabel="Expense Stack View">
+                                    <rect key="frame" x="0.0" y="0.0" width="152" height="50"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支出" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCk-Vi-Bed">
+                                            <rect key="frame" x="0.0" y="0.0" width="41" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ --" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MKZ-Wc-XQd">
+                                            <rect key="frame" x="0.0" y="26" width="34.666666666666664" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="VUW-Va-V4L" userLabel="Budget Stack View">
+                                    <rect key="frame" x="162" y="0.0" width="152" height="50"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="預算" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRR-Yj-W7v">
+                                            <rect key="frame" x="111" y="0.0" width="41" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ --" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3N-dS-saT">
+                                            <rect key="frame" x="117.33333333333333" y="26" width="34.666666666666671" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="qKa-Qo-ddh"/>
+                            </constraints>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAI-uf-EAc">
+                            <rect key="frame" x="0.0" y="54" width="314" height="167"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uf0-jW-k0j" userLabel="Percent Ring View">
+                                    <rect key="frame" x="73.666666666666686" y="0.0" width="167" height="167"/>
+                                    <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="uf0-jW-k0j" secondAttribute="height" multiplier="1:1" id="3Tr-PR-DzE"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="uf0-jW-k0j" firstAttribute="centerX" secondItem="AAI-uf-EAc" secondAttribute="centerX" id="HzA-QR-XhK"/>
+                                <constraint firstItem="uf0-jW-k0j" firstAttribute="height" secondItem="AAI-uf-EAc" secondAttribute="height" id="Qvt-X9-Iob"/>
+                                <constraint firstItem="uf0-jW-k0j" firstAttribute="centerY" secondItem="AAI-uf-EAc" secondAttribute="centerY" id="sO3-pF-I7M"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" name="topicYellow"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="1t5-aM-INk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3YW-Fy-QLe"/>
+                <constraint firstItem="1t5-aM-INk" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="5t8-DK-UUg"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1t5-aM-INk" secondAttribute="trailing" id="Jv9-dG-zEr"/>
+                <constraint firstItem="1t5-aM-INk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="twZ-7X-JgT"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-33.587786259541986" y="-201.7605633802817"/>
+            <point key="canvasLocation" x="-50.381679389312978" y="-203.16901408450704"/>
         </view>
     </objects>
     <resources>
-        <namedColor name="topicYellow">
-            <color red="0.99199998378753662" green="0.7839999794960022" blue="0.32899999618530273" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

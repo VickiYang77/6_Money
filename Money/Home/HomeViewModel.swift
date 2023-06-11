@@ -10,6 +10,8 @@ import UIKit
 class HomeViewModel {
     var dateSection: [String] = []
     var recordsDic: [String: [RecordModel]] = [:]
+    var budget: Int = 100
+    var expense: Int = 30
     
     // MARK: VC binding function
     var reloadData: (() -> ())?
