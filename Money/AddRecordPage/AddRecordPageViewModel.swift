@@ -31,6 +31,6 @@ class AddRecordPageViewModel {
         self.date = dateFormatter.date(from: dateString) ?? Date()
         self.isExpense = isExpense
         
-        self.type = kAM.share.types.first(where: { $0.fields.typeID == typeID}) ?? kAM.share.types.first!
+        self.type = kAM.share.getTypeWithId(typeID)
     }
 }

@@ -1,11 +1,14 @@
 //
-//  RecordType.swift
+//  RecordTypeImage.swift
 //  Money
 //
 //  Created by Vicki Yang on 2023/6/6.
 //
 
-enum RecordType {
+import UIKit
+
+// 預設icon
+enum RecordTypeImage {
     case none
     case dailyNecessities
     case breakfast
@@ -17,7 +20,7 @@ enum RecordType {
     case transportation
     case gift
     
-    var icon: String {
+    var imageName: String {
         switch self {
         case .none:                 return "dollarsign.circle"
         case .dailyNecessities:     return "cart"
@@ -30,5 +33,9 @@ enum RecordType {
         case .transportation:       return "tram"
         case .gift:                 return "gift"
         }
+    }
+    
+    func getImage() -> UIImage {
+        return UIImage(systemName: self.imageName) ?? UIImage(systemName: "dollarsign.circle")!
     }
 }

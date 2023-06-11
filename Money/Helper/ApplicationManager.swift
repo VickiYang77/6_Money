@@ -25,4 +25,8 @@ class ApplicationManager {
         dispatchGroup.wait()
         return types
     }()
+    
+    func getTypeWithId(_ typeID: String) -> TypeModel {
+        return kAM.share.types.first(where: { $0.fields.typeID == typeID}) ?? kAM.share.types.first!
+    }
 }

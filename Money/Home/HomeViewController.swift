@@ -87,7 +87,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cellDatas = viewModel.recordsDic[date], cellDatas.count > indexPath.row else { return UITableViewCell() }
         
         let cellData = cellDatas[indexPath.row].fields
-        cell.setupUI(typeID: cellData.typeID, title: cellData.title, price: "\(cellData.price)")
+        cell.setupUI(typeID: cellData.typeID, title: cellData.title, price: "\(cellData.price)", image: cellData.typeID)
         return cell
     }
     

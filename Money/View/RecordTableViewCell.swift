@@ -12,8 +12,8 @@ class RecordTableViewCell: UITableViewCell {
     @IBOutlet weak var recordLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
-    func setupUI(typeID: String? = "", title: String, price: String) {
-        typeImageView.image = (typeID == nil || typeID == "") ? UIImage(systemName: RecordType.none.icon) : UIImage(systemName: RecordType.gift.icon)
+    func setupUI(typeID: String? = "", title: String, price: String, image: String) {
+        typeImageView.image = (typeID != nil && typeID == "") ? UIImage(systemName: image) : RecordTypeImage.none.getImage()
         recordLabel.text = title
         priceLabel.text = "$\(price)"
         
