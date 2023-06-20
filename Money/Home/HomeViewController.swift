@@ -6,27 +6,30 @@
 //
 
 import UIKit
+import Combine
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var addRecordBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    lazy var homeView: HomeView = {
-        let view = HomeView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.4), viewModel: viewModel)
+    lazy var homeHeaderView: HomeHeaderView = {
+        let view = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.4), viewModel: viewModel)
         return view
     }()
     
+    // MARK: Parameter
     var viewModel = HomeViewModel()
+    private var cancellable = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        bindViewModel()
+        setupBinding()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.fetchRecords()
+        viewModel.fetchRecords.send()
     }
     
     private func setupUI() {
@@ -42,15 +45,17 @@ class HomeViewController: UIViewController {
         tableView.register(RecordSectionView.nib(), forHeaderFooterViewReuseIdentifier: RecordSectionView.identifier)
         tableView.register(RecordTableViewCell.nib(), forCellReuseIdentifier: RecordTableViewCell.identifier)
         
-        tableView.tableHeaderView = homeView
+        tableView.tableHeaderView = homeHeaderView
     }
     
-    private func bindViewModel() {
-        viewModel.reloadData = { [weak self] in
-            DispatchQueue.main.async {
+    private func setupBinding() {
+        // 更新 tableView
+        viewModel.$recordsDic
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
                 self?.tableView.reloadData()
             }
-        }
+            .store(in: &cancellable)
     }
     
     @IBAction func clickAddRecordBtn(_ sender: Any) {

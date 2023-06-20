@@ -1,30 +1,17 @@
 //
-//  HomeView.swift
+//  HomeHeaderView.swift
 //  Money
 //
 //  Created by Vicki Yang on 2023/5/28.
 //
 
 import UIKit
+import Combine
 
-class HomeView: UIView {
-    private var viewModel: HomeViewModel! {
-        didSet {
-            print("vvv_viewModel")
-            balanceLabel.text = balanceString
-            drawPercentRing()
-        }
-    }
-    
+class HomeHeaderView: UIView {
     @IBOutlet weak var budgetLabel: UILabel!
     @IBOutlet weak var expenseLabel: UILabel!
     @IBOutlet weak var percentRingView: UIView!
-    
-    // 進度條寬度
-    let lineWidth: Double = 40
-    
-    // 半徑
-    lazy var radius: Double = (0.8 * percentRingView.bounds.size.width) / 2.0
     
     lazy var circleView: UIView = {
         let viewWidth = 2 * (radius + lineWidth)
@@ -38,23 +25,25 @@ class HomeView: UIView {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 20)
-        label.text = balanceString
         return label
     }()
     
-    var balanceString: String {
-        "剩餘 $ \(viewModel.budget - viewModel.expense)\n\n已支出 \(percentage) %"
-    }
     
-    var percentage: Int {
-        (viewModel.expense * 100) / viewModel.budget
-    }
+    // MARK: Parameter
+    private var percentage: Int = 0
+    private let lineWidth: Double = 40  // 進度條寬度
+    private lazy var radius: Double = (0.8 * percentRingView.bounds.size.width) / 2.0   // 半徑
+    private var viewModel: HomeViewModel!
+    private var cancellable = Set<AnyCancellable>()
     
+    
+    // MARK: Life Cycle
     init(frame: CGRect, viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init(frame: frame)
         loadNibContent()
         setupUI()
+        setupBinding()
     }
     
     required init?(coder: NSCoder) {
@@ -62,20 +51,34 @@ class HomeView: UIView {
     }
     
     func loadNibContent() {
-        let view = Bundle.main.loadNibNamed("HomeView", owner: self, options: nil)?.first as! UIView
+        let view = Bundle.main.loadNibNamed("HomeHeaderView", owner: self, options: nil)?.first as! UIView
         view.frame = self.frame
         addSubview(view)
     }
     
     func setupUI() {
-        budgetLabel.text = "$ \(viewModel.budget)"
-        expenseLabel.text = "$ \(viewModel.expense)"
     }
     
-    func reloadView(viewModel: HomeViewModel) {
-        self.viewModel = viewModel
+    func setupBinding() {
+        viewModel.$budget
+            .print("vvv_HomeHaederView⭐️")
+            .combineLatest(viewModel.$expense)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] (budget, expense) in
+                guard let self = self else { return }
+                self.budgetLabel.text = "$ \(budget)"
+                self.expenseLabel.text = "$ \(expense)"
+                
+                let percentage = (expense * 100) / budget
+                self.balanceLabel.text = "剩餘 $ \(budget - expense)\n\n已支出 \(percentage) %"
+                self.percentage = percentage
+                self.drawPercentRing()
+            }
+            .store(in: &cancellable)
     }
     
+    
+    // MARK: Draw
     override func layoutSubviews() {
         print("vvv_layoutSubviews")
         super.layoutSubviews()
@@ -83,8 +86,8 @@ class HomeView: UIView {
         drawPercentRing()
     }
     
-    func drawPercentRing() {
-        print("vvv_drawPercentRing")
+    private func drawPercentRing() {
+        print("vvv_drawPercentRing🎨")
         // 一度
         let aDegree = Double.pi / 180
         

@@ -6,32 +6,43 @@
 //
 
 import UIKit
+import Combine
 
 class HomeViewModel {
-    var dateSection: [String] = []
-    var recordsDic: [String: [RecordModel]] = [:]
-    var budget: Int = 100
-    var expense: Int = 30
+    @Published var dateSection: [String] = []
+    @Published var recordsDic: [String: [RecordModel]] = [:]
+    @Published var budget: Int = 3000    // 預算
+    @Published var expense: Int = 0    // 支出
+    private var cancellable = Set<AnyCancellable>()
     
-    // MARK: VC binding function
-    var reloadData: (() -> ())?
+    var fetchRecords = PassthroughSubject<Void, Never>()
     
-    func fetchRecords() {
-        APIService.share.fetchRecords(completion: { [weak self] recordsModel in
-            guard let self = self else { return }
-            
-            self.recordsDic = [:] // reset
-            
-            recordsModel.forEach { record in
-                if self.recordsDic[record.fields.date] == nil {
-                    self.recordsDic[record.fields.date] = []
-                }
-                self.recordsDic[record.fields.date]?.append(record)
+    init() {
+        setupBinding()
+    }
+    
+    func setupBinding() {
+        fetchRecords
+            .sink {
+                APIService.share.fetchRecords(completion: { [weak self] recordsModel in
+                    guard let self = self else { return }
+                    
+                    var recordsDic = [String: [RecordModel]]()
+                    var expense = 0
+                    
+                    recordsModel.forEach { record in
+                        if recordsDic[record.fields.date] == nil {
+                            recordsDic[record.fields.date] = []
+                        }
+                        recordsDic[record.fields.date]?.append(record)
+                        expense += record.fields.price
+                    }
+                    
+                    self.dateSection = recordsDic.keys.sorted(by: >)
+                    self.recordsDic = recordsDic
+                    self.expense = expense
+                })
             }
-            
-            self.dateSection = self.recordsDic.keys.sorted(by: >)
-            
-            self.reloadData?()
-        })
+            .store(in: &cancellable)
     }
 }

@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeView" customModule="Money" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeHeaderView" customModule="Money" customModuleProvider="target">
             <connections>
                 <outlet property="budgetLabel" destination="U3N-dS-saT" id="gke-pj-JE2"/>
                 <outlet property="expenseLabel" destination="MKZ-Wc-XQd" id="3kP-Wc-0Jf"/>

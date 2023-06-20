@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		99529A112A1280DF0053E71A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99529A102A1280DF0053E71A /* HomeViewModel.swift */; };
-		99622B802A23A57100309413 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99622B7F2A23A57100309413 /* HomeView.swift */; };
-		99622B822A23A5A900309413 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99622B812A23A5A900309413 /* HomeView.xib */; };
+		99622B802A23A57100309413 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99622B7F2A23A57100309413 /* HomeHeaderView.swift */; };
+		99622B822A23A5A900309413 /* HomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99622B812A23A5A900309413 /* HomeHeaderView.xib */; };
 		996C61432A0F7166008FEC41 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61422A0F7166008FEC41 /* AppDelegate.swift */; };
 		996C61452A0F7166008FEC41 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996C61442A0F7166008FEC41 /* SceneDelegate.swift */; };
 		996C614A2A0F7166008FEC41 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 996C61482A0F7166008FEC41 /* Main.storyboard */; };
@@ -39,8 +39,8 @@
 
 /* Begin PBXFileReference section */
 		99529A102A1280DF0053E71A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		99622B7F2A23A57100309413 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		99622B812A23A5A900309413 /* HomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeView.xib; sourceTree = "<group>"; };
+		99622B7F2A23A57100309413 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		99622B812A23A5A900309413 /* HomeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeHeaderView.xib; sourceTree = "<group>"; };
 		996C613F2A0F7166008FEC41 /* Money.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Money.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		996C61422A0F7166008FEC41 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		996C61442A0F7166008FEC41 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,8 +140,8 @@
 		996C61562A0F7326008FEC41 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				99622B7F2A23A57100309413 /* HomeView.swift */,
-				99622B812A23A5A900309413 /* HomeView.xib */,
+				99622B7F2A23A57100309413 /* HomeHeaderView.swift */,
+				99622B812A23A5A900309413 /* HomeHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -249,7 +249,7 @@
 			files = (
 				996C614F2A0F7169008FEC41 /* LaunchScreen.storyboard in Resources */,
 				99F0B3842A2CF8DC00C66ADD /* TypeCollectionViewCell.xib in Resources */,
-				99622B822A23A5A900309413 /* HomeView.xib in Resources */,
+				99622B822A23A5A900309413 /* HomeHeaderView.xib in Resources */,
 				9977D0B12A21E600006B9932 /* EditRecordViewController.xib in Resources */,
 				99F0B37D2A2CF87C00C66ADD /* RecordTableViewCell.xib in Resources */,
 				996C614C2A0F7169008FEC41 /* Assets.xcassets in Resources */,
@@ -269,7 +269,7 @@
 				99F0B3822A2CF8D200C66ADD /* TypeCollectionViewCell.swift in Sources */,
 				99B223C02A31FD4C00F08F94 /* ApplicationManager.swift in Sources */,
 				99F0B3802A2CF87C00C66ADD /* RecordSectionView.swift in Sources */,
-				99622B802A23A57100309413 /* HomeView.swift in Sources */,
+				99622B802A23A57100309413 /* HomeHeaderView.swift in Sources */,
 				99529A112A1280DF0053E71A /* HomeViewModel.swift in Sources */,
 				996C61432A0F7166008FEC41 /* AppDelegate.swift in Sources */,
 				9977D0B32A223886006B9932 /* EditRecordViewModel.swift in Sources */,
