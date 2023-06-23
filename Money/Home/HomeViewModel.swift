@@ -11,8 +11,8 @@ import Combine
 class HomeViewModel {
     @Published var dateSection: [String] = []
     @Published var recordsDic: [String: [RecordModel]] = [:]
-    @Published var budget: Int = 3000    // 預算
-    @Published var expense: Int = 0    // 支出
+    @Published var records: [RecordModel] = []
+    @Published var budget: Int = 5000
     private var cancellable = Set<AnyCancellable>()
     
     var fetchRecords = PassthroughSubject<Void, Never>()
@@ -27,20 +27,14 @@ class HomeViewModel {
                 APIService.share.fetchRecords(completion: { [weak self] recordsModel in
                     guard let self = self else { return }
                     
-                    var recordsDic = [String: [RecordModel]]()
-                    var expense = 0
-                    
-                    recordsModel.forEach { record in
-                        if recordsDic[record.fields.date] == nil {
-                            recordsDic[record.fields.date] = []
+                    self.dateSection = Set(recordsModel.compactMap { $0.fields.date }).sorted(by: >)
+                    self.records = recordsModel.sorted {
+                        if $0.fields.date == $1.fields.date {
+                            return $0.fields.updateTime > $1.fields.updateTime
+                        } else {
+                            return $0.fields.date > $1.fields.date
                         }
-                        recordsDic[record.fields.date]?.append(record)
-                        expense += record.fields.price
                     }
-                    
-                    self.dateSection = recordsDic.keys.sorted(by: >)
-                    self.recordsDic = recordsDic
-                    self.expense = expense
                 })
             }
             .store(in: &cancellable)

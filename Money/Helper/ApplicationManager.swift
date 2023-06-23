@@ -27,6 +27,6 @@ class ApplicationManager {
     }()
     
     func getTypeWithId(_ typeID: String) -> TypeModel {
-        return kAM.share.types.first(where: { $0.fields.typeID == typeID}) ?? kAM.share.types.first!
+        return kAM.share.types.first(where: { $0.fields.typeID == typeID }) ?? kAM.share.types.first!
     }
 }

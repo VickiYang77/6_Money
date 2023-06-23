@@ -62,10 +62,13 @@ class HomeHeaderView: UIView {
     func setupBinding() {
         viewModel.$budget
             .print("vvv_HomeHaederView⭐️")
-            .combineLatest(viewModel.$expense)
+            .combineLatest(viewModel.$records)
             .receive(on: RunLoop.main)
-            .sink { [weak self] (budget, expense) in
+            .sink { [weak self] (budget, records) in
                 guard let self = self else { return }
+                
+                let expense = records.reduce(0) { $0 + $1.fields.price }
+            
                 self.budgetLabel.text = "$ \(budget)"
                 self.expenseLabel.text = "$ \(expense)"
                 

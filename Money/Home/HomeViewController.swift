@@ -50,7 +50,8 @@ class HomeViewController: UIViewController {
     
     private func setupBinding() {
         // 更新 tableView
-        viewModel.$recordsDic
+        viewModel.$records
+            .combineLatest(viewModel.$dateSection)
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.tableView.reloadData()
@@ -71,7 +72,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let date = viewModel.dateSection[section]
-        return viewModel.recordsDic[date]?.count ?? 0
+        return viewModel.records.filter{ $0.fields.date == date }.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -80,7 +81,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard viewModel.dateSection.count > section else { return UITableViewHeaderFooterView() }
         
         let date = viewModel.dateSection[section]
-        let total = viewModel.recordsDic[date]?.reduce(0, { $0 + $1.fields.price}) ?? 0
+        let total = viewModel.records.filter{ $0.fields.date == date }.reduce(0, { $0 + $1.fields.price})
         sectionView.setup(date: date, total: "\(total)")
         return sectionView
     }
@@ -89,7 +90,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecordTableViewCell.identifier, for: indexPath) as! RecordTableViewCell
         
         let date = viewModel.dateSection[indexPath.section]
-        guard let cellDatas = viewModel.recordsDic[date], cellDatas.count > indexPath.row else { return UITableViewCell() }
+        let cellDatas = viewModel.records.filter({ $0.fields.date == date })
+        guard cellDatas.count > indexPath.row else { return UITableViewCell() }
         
         let cellData = cellDatas[indexPath.row].fields
         cell.setupUI(typeID: cellData.typeID, title: cellData.title, price: "\(cellData.price)")
@@ -110,8 +112,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let date = viewModel.dateSection[indexPath.section]
-        if let cellData = viewModel.recordsDic[date]?[indexPath.row] {
-            let vm = EditRecordViewModel(recordID: cellData.id, titleText: cellData.fields.title, priceTotal: cellData.fields.price, dateString: cellData.fields.date, typeID: cellData.fields.typeID, isExpense: cellData.fields.isExpense)
+        let cellDatas = viewModel.records.filter({ $0.fields.date == date })
+        if cellDatas.count > indexPath.row {
+            let cellData = cellDatas[indexPath.row]
+            let vm = EditRecordViewModel(cellData, isEdit: true)
             let vc = EditRecordViewController(viewModel: vm)
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -123,23 +127,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             guard let self = self else { return }
             
             let date = self.viewModel.dateSection[indexPath.section]
-            if let cellData = self.viewModel.recordsDic[date]?[indexPath.row] {
+            let cellDatas = self.viewModel.records.filter({ $0.fields.date == date })
+            if cellDatas.count > indexPath.row {
+                let cellData = cellDatas[indexPath.row]
                 APIService.share.deleteRecords([cellData.id]) {
                     DispatchQueue.main.async {
-                        self.viewModel.recordsDic[date]?.remove(at: indexPath.row)
-                        if self.viewModel.recordsDic[date]?.count == 0 {
+                        self.viewModel.records.removeAll(where: { $0.id == cellData.id })
+                        if self.viewModel.records.filter({ $0.fields.date == date }).count == 0 {
                             self.viewModel.dateSection.remove(at: indexPath.section)
-                            UIView.performWithoutAnimation {
-                                self.tableView.beginUpdates()
-                                self.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-                                self.tableView.endUpdates()
-                            }
-                        } else {
-                            UIView.performWithoutAnimation {
-                                self.tableView.beginUpdates()
-                                self.tableView.deleteRows(at: [indexPath], with: .fade)
-                                self.tableView.endUpdates()
-                            }
                         }
                         
                         completionHandler(true)
@@ -149,7 +144,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         deleteAction.image = UIImage(systemName: "trash")
-        let trailingSwipConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
-        return trailingSwipConfiguration
+        let actions = UISwipeActionsConfiguration(actions: [deleteAction])
+        return actions
     }
 }

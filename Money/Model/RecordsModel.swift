@@ -15,6 +15,12 @@ struct RecordModel: Codable {
     let id: String
     let createdTime: String
     let fields: RecordFieldsModel
+    
+    init(id: String = "", createdTime: String = "", fields: RecordFieldsModel) {
+        self.id = id
+        self.createdTime = createdTime
+        self.fields = fields
+    }
 }
 
 struct RecordFieldsModel: Codable {
@@ -25,7 +31,7 @@ struct RecordFieldsModel: Codable {
     let isExpense: Int  // Y:支出, N:收入
     let updateTime: String
     
-    init(title: String = "", price: Int = 0, date: String, typeID: String, isExpense: Int = 1) {
+    init(title: String = "", price: Int = 0, date: String = "", typeID: String = "", isExpense: Int = 1) {
         self.title = title
         self.price = price
         self.date = date
