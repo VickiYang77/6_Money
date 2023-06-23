@@ -111,7 +111,8 @@ class EditRecordViewController: UIViewController {
             formatter.dateFormat = "yyyy-MM-dd"
             let recordDate = formatter.string(from: datePicker.date)
             
-            let record = RecordFieldsModel(title: titleTextField.text ?? "", price: viewModel.priceTotal, date: recordDate, typeID: viewModel.type.fields.typeID, isExpense: 1)
+            let title = titleTextField.text != "" ? titleTextField.text : "tempTitle"
+            let record = RecordFieldsModel(title: title ?? "", price: viewModel.priceTotal, date: recordDate, typeID: viewModel.type.fields.typeID, isExpense: 1)
             
             if viewModel.recordID != "" {
                 let records = updateRecordRequest(records: [

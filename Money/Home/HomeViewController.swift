@@ -8,6 +8,10 @@
 import UIKit
 import Combine
 
+// Diffable Data Source
+typealias HomeDataSource = UITableViewDiffableDataSource<HomeSection, RecordModel>
+typealias HomeSnapshot = NSDiffableDataSourceSnapshot<HomeSection, RecordModel>
+
 class HomeViewController: UIViewController {
     @IBOutlet weak var addRecordBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -20,6 +24,8 @@ class HomeViewController: UIViewController {
     // MARK: Parameter
     var viewModel = HomeViewModel()
     private var cancellable = Set<AnyCancellable>()
+    
+    private lazy var dataSource = makeDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +47,7 @@ class HomeViewController: UIViewController {
         navigationItem.backBarButtonItem = backBtn
         
         tableView.delegate = self
-        tableView.dataSource = self
+        tableView.dataSource = dataSource
         tableView.register(RecordSectionView.nib(), forHeaderFooterViewReuseIdentifier: RecordSectionView.identifier)
         tableView.register(RecordTableViewCell.nib(), forCellReuseIdentifier: RecordTableViewCell.identifier)
         
@@ -53,8 +59,17 @@ class HomeViewController: UIViewController {
         viewModel.$records
             .combineLatest(viewModel.$dateSection)
             .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
-                self?.tableView.reloadData()
+            .sink { [weak self] (records, dataSection) in
+                guard let self = self else { return }
+                var snapshot = HomeSnapshot()
+                for date in dataSection {
+                    let items = records.filter { $0.fields.date == date }
+                    snapshot.appendSections([HomeSection(date: date)])
+                    snapshot.appendItems(items, toSection: HomeSection(date: date))
+                }
+                
+                self.dataSource.defaultRowAnimation = .fade
+                self.dataSource.apply(snapshot, animatingDifferences: true)
             }
             .store(in: &cancellable)
     }
@@ -65,16 +80,32 @@ class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.dateSection.count
+// MARK: - UITableView DiffableData Source
+struct HomeSection: Hashable {
+    let date: String
+}
+
+@available(iOS 13.0, *)
+fileprivate extension HomeViewController {
+    func makeDataSource() -> HomeDataSource {
+        return HomeDataSource(tableView: tableView) { [weak self]  tableView, indexPath, item in
+            guard let self = self else { return UITableViewCell() }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: RecordTableViewCell.identifier, for: indexPath) as! RecordTableViewCell
+            
+            let date = self.viewModel.dateSection[indexPath.section]
+            let cellDatas = self.viewModel.records.filter({ $0.fields.date == date })
+            guard cellDatas.count > indexPath.row else { return UITableViewCell() }
+            
+            let cellData = cellDatas[indexPath.row].fields
+            cell.setupUI(typeID: cellData.typeID, title: cellData.title, price: "\(cellData.price)")
+            return cell
+        }
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let date = viewModel.dateSection[section]
-        return viewModel.records.filter{ $0.fields.date == date }.count
-    }
-    
+}
+
+// MARK: - UITableViewDelegate
+extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: RecordSectionView.identifier) as! RecordSectionView
         
@@ -84,18 +115,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let total = viewModel.records.filter{ $0.fields.date == date }.reduce(0, { $0 + $1.fields.price})
         sectionView.setup(date: date, total: "\(total)")
         return sectionView
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: RecordTableViewCell.identifier, for: indexPath) as! RecordTableViewCell
-        
-        let date = viewModel.dateSection[indexPath.section]
-        let cellDatas = viewModel.records.filter({ $0.fields.date == date })
-        guard cellDatas.count > indexPath.row else { return UITableViewCell() }
-        
-        let cellData = cellDatas[indexPath.row].fields
-        cell.setupUI(typeID: cellData.typeID, title: cellData.title, price: "\(cellData.price)")
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -43,3 +43,14 @@ struct RecordFieldsModel: Codable {
         self.updateTime = dateFormatter.string(from: Date())
     }
 }
+
+@available(iOS 13.0, *)
+extension RecordModel: Hashable {
+    static func == (lhs: RecordModel, rhs: RecordModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

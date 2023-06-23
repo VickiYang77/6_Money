@@ -61,7 +61,6 @@ class HomeHeaderView: UIView {
     
     func setupBinding() {
         viewModel.$budget
-            .print("vvv_HomeHaederView⭐️")
             .combineLatest(viewModel.$records)
             .receive(on: RunLoop.main)
             .sink { [weak self] (budget, records) in
@@ -83,14 +82,12 @@ class HomeHeaderView: UIView {
     
     // MARK: Draw
     override func layoutSubviews() {
-        print("vvv_layoutSubviews")
         super.layoutSubviews()
         self.layoutIfNeeded()
         drawPercentRing()
     }
     
     private func drawPercentRing() {
-        print("vvv_drawPercentRing🎨")
         // 一度
         let aDegree = Double.pi / 180
         
