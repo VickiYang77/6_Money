@@ -26,7 +26,7 @@ class HomeViewModel {
                 APIService.share.fetchRecords(completion: { [weak self] recordsModel in
                     guard let self = self else { return }
                     
-                    self.dateSection = Set(recordsModel.compactMap { $0.fields.date }).sorted(by: >)
+                    self.dateSection = Set(recordsModel.map(\.fields.date)).sorted(by: >)
                     self.records = recordsModel.sorted {
                         if $0.fields.date == $1.fields.date {
                             return $0.fields.updateTime > $1.fields.updateTime
@@ -37,5 +37,9 @@ class HomeViewModel {
                 })
             }
             .store(in: &cancellable)
+    }
+    
+    func getRecordsWith(_ date: Date) -> [RecordModel] {
+        return records.filter { $0.fields.date == date }
     }
 }

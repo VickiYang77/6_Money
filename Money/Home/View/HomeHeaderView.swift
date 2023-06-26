@@ -20,6 +20,7 @@ class HomeHeaderView: UIView {
         return view
     }()
     
+    // 餘額
     lazy var balanceLabel: UILabel = {
         let label = UILabel(frame: percentRingView.bounds)
         label.textAlignment = .center
@@ -27,7 +28,6 @@ class HomeHeaderView: UIView {
         label.font = .systemFont(ofSize: 20)
         return label
     }()
-    
     
     // MARK: Parameter
     private var percentage: Int = 0

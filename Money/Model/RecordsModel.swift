@@ -44,7 +44,12 @@ struct RecordFieldsModel: Codable {
 @available(iOS 13.0, *)
 extension RecordModel: Hashable {
     static func == (lhs: RecordModel, rhs: RecordModel) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.id == rhs.id &&
+        lhs.fields.title == rhs.fields.title &&
+        lhs.fields.price == rhs.fields.price &&
+        lhs.fields.date == rhs.fields.date &&
+        lhs.fields.typeID == rhs.fields.typeID &&
+        lhs.fields.isExpense == rhs.fields.isExpense
     }
     
     func hash(into hasher: inout Hasher) {
