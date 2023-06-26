@@ -23,9 +23,7 @@ class EditRecordViewModel {
     var priceTotal: Int
     
     var date: Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.date(from: record.fields.date) ?? Date()
+        record.fields.date
     }
     
     var isExpense: Int {

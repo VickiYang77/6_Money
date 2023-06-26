@@ -36,7 +36,11 @@ class APIService {
             }
             
             do {
-                let response = try JSONDecoder().decode(RecordsModel.self, from: data)
+                let decoder = JSONDecoder()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                decoder.dateDecodingStrategy = .formatted(dateFormatter)
+                let response = try decoder.decode(RecordsModel.self, from: data)
                 completion(response.records)
             } catch {
                 print("vvv_解析錯誤：\(error)")

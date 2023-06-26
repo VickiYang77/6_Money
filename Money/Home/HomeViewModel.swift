@@ -9,8 +9,7 @@ import UIKit
 import Combine
 
 class HomeViewModel {
-    @Published var dateSection: [String] = []
-    @Published var recordsDic: [String: [RecordModel]] = [:]
+    @Published var dateSection: [Date] = []
     @Published var records: [RecordModel] = []
     @Published var budget: Int = 5000
     private var cancellable = Set<AnyCancellable>()

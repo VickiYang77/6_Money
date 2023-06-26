@@ -57,6 +57,7 @@ class EditRecordViewController: UIViewController {
             }
         }
         
+        titleTextField.delegate = self
         titleTextField.text = viewModel.titleText
         priceLabel.text = "$ \(viewModel.priceTotal)"
         datePicker.date = viewModel.date
@@ -101,18 +102,27 @@ class EditRecordViewController: UIViewController {
         case 0...9:
             viewModel.priceTotal += btnTag * 100
             priceLabel.text = "$ \(viewModel.priceTotal)"
-        case 91...94:
-            sender.backgroundColor = .topicRed
-            viewModel.currentOperatorTag = btnTag
+//        case 91...94:
+//            sender.backgroundColor = .topicRed
+//            viewModel.currentOperatorTag = btnTag
             
         // Save
         case 999:
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
-            let recordDate = formatter.string(from: datePicker.date)
+            let calendar = Calendar.current
+            let selectedDate = datePicker.date
+            let components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatter.timeZone = TimeZone.current
+            guard let date = calendar.date(from: components) else {
+                return
+            }
+            
+            let formattedDate = dateFormatter.string(from: date)
             
             let title = titleTextField.text != "" ? titleTextField.text : "tempTitle"
-            let record = RecordFieldsModel(title: title ?? "", price: viewModel.priceTotal, date: recordDate, typeID: viewModel.type.fields.typeID, isExpense: 1)
+            let record = ApiRecordFieldsModel(title: title ?? "", price: viewModel.priceTotal, date: formattedDate, typeID: viewModel.type.fields.typeID, isExpense: 1)
             
             if viewModel.recordID != "" {
                 let records = updateRecordRequest(records: [
@@ -141,7 +151,7 @@ class EditRecordViewController: UIViewController {
     }
 }
 
-extension EditRecordViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension EditRecordViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return  kAM.share.types.count
     }
@@ -155,9 +165,18 @@ extension EditRecordViewController: UICollectionViewDelegate, UICollectionViewDa
         cell.setup(name: data.name, image: data.icon)
         return cell
     }
-    
+}
+
+extension EditRecordViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.type =  kAM.share.types[indexPath.row]
         typeImageView.image = UIImage(systemName: viewModel.type.fields.icon)
+    }
+}
+
+extension EditRecordViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

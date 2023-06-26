@@ -14,7 +14,7 @@ struct updateRecordRequest: Codable {
 
 struct updateRecordModel: Codable {
     let id: String
-    let fields: RecordFieldsModel
+    let fields: ApiRecordFieldsModel
 }
 
 

@@ -82,7 +82,7 @@ class HomeViewController: UIViewController {
 
 // MARK: - UITableView DiffableData Source
 struct HomeSection: Hashable {
-    let date: String
+    let date: Date
 }
 
 @available(iOS 13.0, *)

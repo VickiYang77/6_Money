@@ -13,7 +13,7 @@ struct InsertRecordRequest: Codable {
 }
 
 struct InsertRecordModel: Codable {
-    let fields: RecordFieldsModel
+    let fields: ApiRecordFieldsModel
 }
 
 

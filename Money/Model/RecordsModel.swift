@@ -26,21 +26,18 @@ struct RecordModel: Codable {
 struct RecordFieldsModel: Codable {
     let title: String
     let price: Int
-    let date: String
+    let date: Date
     let typeID: String
     let isExpense: Int  // Y:支出, N:收入
-    let updateTime: String
+    let updateTime: Date
     
-    init(title: String = "", price: Int = 0, date: String = "", typeID: String = "", isExpense: Int = 1) {
+    init(title: String = "", price: Int = 0, date: Date = Date(), typeID: String = "", isExpense: Int = 1) {
         self.title = title
         self.price = price
         self.date = date
         self.typeID = typeID
         self.isExpense = isExpense
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        self.updateTime = dateFormatter.string(from: Date())
+        self.updateTime = Date()
     }
 }
 
