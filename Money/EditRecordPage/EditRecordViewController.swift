@@ -175,6 +175,7 @@ class EditRecordViewController: UIViewController {
     }
 }
 
+// MARK: UICollectionViewDataSource
 extension EditRecordViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return  kAM.share.types.count
@@ -191,6 +192,7 @@ extension EditRecordViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: UICollectionViewDelegate
 extension EditRecordViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.type =  kAM.share.types[indexPath.row]
@@ -198,6 +200,7 @@ extension EditRecordViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: UITextFieldDelegate
 extension EditRecordViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

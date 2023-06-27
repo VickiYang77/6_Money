@@ -92,13 +92,11 @@ fileprivate extension HomeViewController {
             guard let self = self else { return UITableViewCell() }
             
             let cell = tableView.dequeueReusableCell(withIdentifier: RecordTableViewCell.identifier, for: indexPath) as! RecordTableViewCell
-            
-            let date = self.viewModel.dateSection[indexPath.section]
-            let cellDatas = self.viewModel.getRecordsWith(date)
+            let cellDatas = self.viewModel.getSectionRecords(indexPath.section)
             guard cellDatas.count > indexPath.row else { return UITableViewCell() }
             
-            let cellData = cellDatas[indexPath.row].fields
-            cell.setupUI(typeID: cellData.typeID, title: cellData.title, price: "\(cellData.price)")
+            let cellInfo = cellDatas[indexPath.row].fields
+            cell.setupUI(typeID: cellInfo.typeID, title: cellInfo.title, price: "\(cellInfo.price)")
             return cell
         }
     }
@@ -130,13 +128,12 @@ extension HomeViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let date = viewModel.dateSection[indexPath.section]
-        let cellDatas = viewModel.getRecordsWith(date)
+        let cellDatas = viewModel.getSectionRecords(indexPath.section)
         if cellDatas.count > indexPath.row {
             tableView.deselectRow(at: indexPath, animated: true)
             
-            let cellData = cellDatas[indexPath.row]
-            let vm = EditRecordViewModel(cellData, isEdit: true)
+            let cellInfo = cellDatas[indexPath.row]
+            let vm = EditRecordViewModel(cellInfo, isEdit: true)
             let vc = EditRecordViewController(viewModel: vm)
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -144,17 +141,32 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (action, sourceView, completionHandler) in
+        let copyAction = UIContextualAction(style: .normal, title: "Copy") { [weak self] (action, sourceView, completionHandler) in
             guard let self = self else { return }
             
-            let date = self.viewModel.dateSection[indexPath.section]
-            let cellDatas = self.viewModel.getRecordsWith(date)
+            let cellDatas = self.viewModel.getSectionRecords(indexPath.section)
             if cellDatas.count > indexPath.row {
-                let cellData = cellDatas[indexPath.row]
-                APIService.share.deleteRecords([cellData.id]) {
+                let cellInfo = cellDatas[indexPath.row]
+                let vm = EditRecordViewModel(RecordModel(id: "", createdTime: "", fields: cellInfo.fields))
+                let vc = EditRecordViewController(viewModel: vm)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            completionHandler(true)
+        }
+        
+        copyAction.image = UIImage(systemName: "doc.on.doc")
+        copyAction.backgroundColor = .topicYellow
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, sourceView, completionHandler) in
+            guard let self = self else { return }
+            
+            let cellDatas = self.viewModel.getSectionRecords(indexPath.section)
+            if cellDatas.count > indexPath.row {
+                let cellInfo = cellDatas[indexPath.row]
+                APIService.share.deleteRecords([cellInfo.id]) {
                     DispatchQueue.main.async {
-                        self.viewModel.records.removeAll(where: { $0.id == cellData.id })
-                        if self.viewModel.getRecordsWith(date).count == 0 {
+                        self.viewModel.records.removeAll(where: { $0.id == cellInfo.id })
+                        if self.viewModel.getSectionRecords(indexPath.section).count == 0 {
                             self.viewModel.dateSection.remove(at: indexPath.section)
                         }
                         
@@ -165,7 +177,6 @@ extension HomeViewController: UITableViewDelegate {
         }
         
         deleteAction.image = UIImage(systemName: "trash")
-        let actions = UISwipeActionsConfiguration(actions: [deleteAction])
-        return actions
+        return UISwipeActionsConfiguration(actions: [copyAction, deleteAction])
     }
 }

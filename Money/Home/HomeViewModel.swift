@@ -39,6 +39,11 @@ class HomeViewModel {
             .store(in: &cancellable)
     }
     
+    func getSectionRecords(_ index: Int) -> [RecordModel] {
+        let date = dateSection[index]
+        return getRecordsWith(date)
+    }
+    
     func getRecordsWith(_ date: Date) -> [RecordModel] {
         return records.filter { $0.fields.date == date }
     }
