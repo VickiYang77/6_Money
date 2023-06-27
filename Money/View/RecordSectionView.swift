@@ -22,9 +22,7 @@ class RecordSectionView: UITableViewHeaderFooterView {
     }
     
     func setup(date: Date, total: String) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateLabel.text = dateFormatter.string(from: date)
+        dateLabel.text = DateFormatter.stringyyyyMMdd(from: date)
         totalLabel.text = "$\(total)"
     }
 }

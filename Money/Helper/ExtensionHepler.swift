@@ -32,3 +32,19 @@ extension UIView {
         return UINib(nibName: "\(Self.self)", bundle: nil)
     }
 }
+
+extension DateFormatter {
+    static func stringyyyyMMdd(from date: Date) -> String {
+        return DateFormatter.string(from: date, format: "yyyy-MM-dd")
+    }
+    
+    static func stringyyyyMMddAndTime(from date: Date) -> String {
+        return DateFormatter.string(from: date, format: "yyyy-MM-dd HH:mm:ss")
+    }
+    
+    static func string(from date: Date, format: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: date)
+    }
+}

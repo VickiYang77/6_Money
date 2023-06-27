@@ -14,13 +14,14 @@ class EditRecordViewController: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var calculateStackView: UIStackView!
     
-    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var minusButton: UIButton!
     @IBOutlet weak var multiplyButton: UIButton!
     @IBOutlet weak var divideButton: UIButton!
     
+    let datePicker = UIDatePicker()
     let viewModel: EditRecordViewModel
     
     init(viewModel: EditRecordViewModel) {
@@ -60,11 +61,17 @@ class EditRecordViewController: UIViewController {
         titleTextField.delegate = self
         titleTextField.text = viewModel.titleText
         priceLabel.text = "$ \(viewModel.priceTotal)"
-        datePicker.date = viewModel.date
+        
+        setupDatePicker()
+        
         typeImageView.image = UIImage(systemName: viewModel.type.fields.icon)
         
         setupCollectionView()
         
+        // 收合鍵盤
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(disableKeyboard(_:)))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     private func bindViewModel() {
@@ -93,7 +100,6 @@ class EditRecordViewController: UIViewController {
         collectionView.setCollectionViewLayout(layout, animated: false)
     }
 
-    
     @IBAction func clickCalculateBtn(_ sender: UIButton) {
         let btnTag = sender.tag
         print("vv_\(btnTag)")
@@ -108,21 +114,9 @@ class EditRecordViewController: UIViewController {
             
         // Save
         case 999:
-            let calendar = Calendar.current
-            let selectedDate = datePicker.date
-            let components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
-
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            dateFormatter.timeZone = TimeZone.current
-            guard let date = calendar.date(from: components) else {
-                return
-            }
-            
-            let formattedDate = dateFormatter.string(from: date)
-            
-            let title = titleTextField.text != "" ? titleTextField.text : "tempTitle"
-            let record = ApiRecordFieldsModel(title: title ?? "", price: viewModel.priceTotal, date: formattedDate, typeID: viewModel.type.fields.typeID, isExpense: 1)
+            let title = titleTextField.text != "" ? titleTextField.text : "title"
+            let date = "\(dateTextField.text!) 00:00:00"
+            let record = ApiRecordFieldsModel(title: title ?? "", price: viewModel.priceTotal, date: date, typeID: viewModel.type.fields.typeID, isExpense: 1)
             
             if viewModel.recordID != "" {
                 let records = updateRecordRequest(records: [
@@ -148,6 +142,36 @@ class EditRecordViewController: UIViewController {
         default:
             return
         }
+    }
+    
+    func setupDatePicker() {
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        datePicker.date = viewModel.date
+        
+        dateTextField.text = DateFormatter.stringyyyyMMdd(from: datePicker.date)
+        dateTextField.inputView = datePicker
+        dateTextField.inputAccessoryView = createDatePickerToolbar()
+        dateTextField.tintColor = .clear
+        dateTextField.delegate = self
+    }
+    
+    func createDatePickerToolbar() -> UIToolbar {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(datePickerDoneBtn))
+        let spaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([spaceItem,doneBtn], animated: true)
+        return toolBar
+    }
+    
+    @objc func datePickerDoneBtn() {
+        dateTextField.text = DateFormatter.stringyyyyMMdd(from: datePicker.date)
+        view.endEditing(true)
+    }
+    
+    @objc func disableKeyboard(_ gesture: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
 }
 

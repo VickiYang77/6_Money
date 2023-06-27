@@ -21,9 +21,6 @@ struct ApiRecordFieldsModel: Codable {
         self.date = date
         self.typeID = typeID
         self.isExpense = isExpense
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        self.updateTime = dateFormatter.string(from: Date())
+        self.updateTime = DateFormatter.stringyyyyMMddAndTime(from: Date())
     }
 }
