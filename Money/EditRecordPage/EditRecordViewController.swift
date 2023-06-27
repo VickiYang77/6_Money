@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class EditRecordViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
@@ -23,6 +24,7 @@ class EditRecordViewController: UIViewController {
     
     let datePicker = UIDatePicker()
     let viewModel: EditRecordViewModel
+    private var cancellable = Set<AnyCancellable>()
     
     init(viewModel: EditRecordViewModel) {
         self.viewModel = viewModel
@@ -36,7 +38,7 @@ class EditRecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        bindViewModel()
+        setupBinding()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,12 +62,8 @@ class EditRecordViewController: UIViewController {
         
         titleTextField.delegate = self
         titleTextField.text = viewModel.titleText
-        priceLabel.text = "$ \(viewModel.priceTotal)"
         
         setupDatePicker()
-        
-        typeImageView.image = UIImage(systemName: viewModel.type.fields.icon)
-        
         setupCollectionView()
         
         // 收合鍵盤
@@ -74,12 +72,18 @@ class EditRecordViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
-    private func bindViewModel() {
-        viewModel.reloadData = { [weak self] in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-        }
+    private func setupBinding() {
+        viewModel.$priceTotal
+            .receive(on: RunLoop.main)
+            .map { String($0) }
+            .assign(to: \.text, on: priceLabel)
+            .store(in: &cancellable)
+        
+        viewModel.$type
+            .receive(on: RunLoop.main)
+            .map { UIImage(systemName: $0.fields.icon) }
+            .assign(to: \.image, on: typeImageView)
+            .store(in: &cancellable)
     }
     
     func setupCollectionView() {
@@ -106,8 +110,8 @@ class EditRecordViewController: UIViewController {
         
         switch btnTag {
         case 0...9:
-            viewModel.priceTotal += btnTag * 100
-            priceLabel.text = "$ \(viewModel.priceTotal)"
+            viewModel.priceTotal += btnTag * 10
+            
 //        case 91...94:
 //            sender.backgroundColor = .topicRed
 //            viewModel.currentOperatorTag = btnTag
@@ -186,8 +190,8 @@ extension EditRecordViewController: UICollectionViewDataSource {
         
         guard kAM.share.types.count > indexPath.row else { return UICollectionViewCell() }
         
-        let data =  kAM.share.types[indexPath.row].fields
-        cell.setup(name: data.name, image: data.icon)
+        let typeInfo =  kAM.share.types[indexPath.row].fields
+        cell.setup(name: typeInfo.name, image: typeInfo.icon)
         return cell
     }
 }
@@ -196,7 +200,6 @@ extension EditRecordViewController: UICollectionViewDataSource {
 extension EditRecordViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.type =  kAM.share.types[indexPath.row]
-        typeImageView.image = UIImage(systemName: viewModel.type.fields.icon)
     }
 }
 

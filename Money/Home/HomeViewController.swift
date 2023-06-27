@@ -24,7 +24,6 @@ class HomeViewController: UIViewController {
     // MARK: Parameter
     var viewModel = HomeViewModel()
     private var cancellable = Set<AnyCancellable>()
-    
     private lazy var dataSource = makeDataSource()
     
     override func viewDidLoad() {
@@ -50,7 +49,6 @@ class HomeViewController: UIViewController {
         tableView.dataSource = dataSource
         tableView.register(RecordSectionView.nib(), forHeaderFooterViewReuseIdentifier: RecordSectionView.identifier)
         tableView.register(RecordTableViewCell.nib(), forCellReuseIdentifier: RecordTableViewCell.identifier)
-        
         tableView.tableHeaderView = homeHeaderView
     }
     

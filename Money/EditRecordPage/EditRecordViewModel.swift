@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 class EditRecordViewModel {
+    let isEdit: Bool
     var record: RecordModel!
     
-    var isEdit: Bool
+    @Published var priceTotal: Int
+    @Published var type: TypeModel
     
     var recordID: String {
         record.id
@@ -20,8 +23,6 @@ class EditRecordViewModel {
         record.fields.title
     }
     
-    var priceTotal: Int
-    
     var date: Date {
         record.fields.date
     }
@@ -30,18 +31,19 @@ class EditRecordViewModel {
         record.fields.isExpense
     }
     
-    var type: TypeModel
-    
     // 91除, 92乘, 93加, 94減
     var currentOperatorTag = 0
     
-    // MARK: VC binding function
-    var reloadData: (() -> ())?
+    private var cancellable = Set<AnyCancellable>()
     
     init(_ record: RecordModel = RecordModel(id: "", createdTime: "", fields: RecordFieldsModel()), isEdit: Bool = false) {
         self.record = record
         self.isEdit = isEdit
         self.priceTotal = record.fields.price
         self.type = kAM.share.getTypeWithId(record.fields.typeID)
+        setupBinding()
+    }
+    
+    func setupBinding() {
     }
 }
