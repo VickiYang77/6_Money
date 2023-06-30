@@ -10,14 +10,10 @@ import Combine
 
 class EditRecordViewModel {
     let isEdit: Bool
-    
     @Published var record: RecordModel
     @Published var priceTotal: Int
     @Published var type: TypeModel
-    
-    var recordID: String {
-        record.id
-    }
+    var popViewController = PassthroughSubject<Void, Never>()
     
     var titleText: String {
         get {
@@ -41,6 +37,10 @@ class EditRecordViewModel {
     
     var isExpense: Int {
         record.fields.isExpense
+    }
+    
+    private var recordID: String {
+        record.id
     }
     
     private var dateString: String {
@@ -67,8 +67,26 @@ class EditRecordViewModel {
     func setupBinding() {
     }
     
-    func createApiRecordFieldsModel() -> ApiRecordFieldsModel {
+    func save() {
         let title = titleText.count != 0 ? titleText : "title"
-        return ApiRecordFieldsModel(title: title, price: priceTotal, date: dateString, typeID: typeID, isExpense: isExpense)
+        let record = ApiRecordFieldsModel(title: title, price: priceTotal, date: dateString, typeID: typeID, isExpense: isExpense)
+        
+        if recordID != "" {
+            let records = updateRecordRequest(records: [
+                .init(id: recordID, fields: record)
+            ])
+            
+            APIService.share.updateRecords(records) { [weak self] in
+                self?.popViewController.send()
+            }
+        } else {
+            let records = InsertRecordRequest(records: [
+                .init(fields: record)
+            ])
+            
+            APIService.share.insertRecords(records) { [weak self] in
+                self?.popViewController.send()
+            }
+        }
     }
 }

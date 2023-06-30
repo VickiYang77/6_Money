@@ -94,6 +94,13 @@ class EditRecordViewController: UIViewController {
                 self?.typeImageView.image = UIImage(systemName: $0.fields.icon)
             }
             .store(in: &cancellable)
+        
+        viewModel.popViewController
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &cancellable)
     }
     
     func setupCollectionView() {
@@ -126,31 +133,8 @@ class EditRecordViewController: UIViewController {
 //            sender.backgroundColor = .topicRed
 //            viewModel.currentOperatorTag = btnTag
             
-        // Save
         case 999:
-            let record = viewModel.createApiRecordFieldsModel()
-            
-            if viewModel.recordID != "" {
-                let records = updateRecordRequest(records: [
-                    .init(id: viewModel.recordID, fields: record)
-                ])
-                
-                APIService.share.updateRecords(records) { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.navigationController?.popViewController(animated: true)
-                    }
-                }
-            } else {
-                let records = InsertRecordRequest(records: [
-                    .init(fields: record)
-                ])
-                
-                APIService.share.insertRecords(records) { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.navigationController?.popViewController(animated: true)
-                    }
-                }
-            }
+            viewModel.save()
         default:
             return
         }
