@@ -10,8 +10,8 @@ import Combine
 
 class EditRecordViewModel {
     let isEdit: Bool
-    var record: RecordModel!
     
+    @Published var record: RecordModel
     @Published var priceTotal: Int
     @Published var type: TypeModel
     
@@ -20,15 +20,35 @@ class EditRecordViewModel {
     }
     
     var titleText: String {
-        record.fields.title
+        get {
+            record.fields.title
+        }
+        
+        set {
+            record.fields.title = newValue
+        }
     }
     
     var date: Date {
-        record.fields.date
+        get {
+            record.fields.date
+        }
+        
+        set {
+            record.fields.date = newValue
+        }
     }
     
     var isExpense: Int {
         record.fields.isExpense
+    }
+    
+    private var dateString: String {
+        DateFormatter.stringyyyyMMdd(from: date) + " 00:00:00"
+    }
+    
+    private var typeID: String {
+        type.fields.typeID
     }
     
     // 91除, 92乘, 93加, 94減
@@ -45,5 +65,10 @@ class EditRecordViewModel {
     }
     
     func setupBinding() {
+    }
+    
+    func createApiRecordFieldsModel() -> ApiRecordFieldsModel {
+        let title = titleText.count != 0 ? titleText : "title"
+        return ApiRecordFieldsModel(title: title, price: priceTotal, date: dateString, typeID: typeID, isExpense: isExpense)
     }
 }

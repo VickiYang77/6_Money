@@ -14,7 +14,7 @@ struct RecordsModel: Codable {
 struct RecordModel: Codable {
     let id: String
     let createdTime: String
-    let fields: RecordFieldsModel
+    var fields: RecordFieldsModel
     
     init(id: String = "", createdTime: String = "", fields: RecordFieldsModel) {
         self.id = id
@@ -24,12 +24,12 @@ struct RecordModel: Codable {
 }
 
 struct RecordFieldsModel: Codable {
-    let title: String
-    let price: Int
-    let date: Date
-    let typeID: String
-    let isExpense: Int  // Y:支出, N:收入
-    let updateTime: Date
+    var title: String
+    var price: Int
+    var date: Date
+    var typeID: String
+    var isExpense: Int  // Y:支出, N:收入
+    var updateTime: Date
     
     init(title: String = "", price: Int = 0, date: Date = Date(), typeID: String = "", isExpense: Int = 1) {
         self.title = title

@@ -62,7 +62,8 @@ class EditRecordViewController: UIViewController {
         
         titleTextField.delegate = self
         titleTextField.text = viewModel.titleText
-        
+        titleTextField.addTarget(self, action: #selector(updateTitle(_:)), for: .editingDidEnd)
+
         setupDatePicker()
         setupCollectionView()
         
@@ -73,16 +74,25 @@ class EditRecordViewController: UIViewController {
     }
     
     private func setupBinding() {
+        viewModel.$record
+            .receive(on: RunLoop.main)
+            .sink { [weak self] record in
+                self?.dateTextField.text = DateFormatter.stringyyyyMMdd(from: record.fields.date)
+            }
+            .store(in: &cancellable)
+        
         viewModel.$priceTotal
             .receive(on: RunLoop.main)
-            .map { String($0) }
-            .assign(to: \.text, on: priceLabel)
+            .sink { [weak self] in
+                self?.priceLabel.text = String($0)
+            }
             .store(in: &cancellable)
         
         viewModel.$type
             .receive(on: RunLoop.main)
-            .map { UIImage(systemName: $0.fields.icon) }
-            .assign(to: \.image, on: typeImageView)
+            .sink { [weak self] in
+                self?.typeImageView.image = UIImage(systemName: $0.fields.icon)
+            }
             .store(in: &cancellable)
     }
     
@@ -118,9 +128,7 @@ class EditRecordViewController: UIViewController {
             
         // Save
         case 999:
-            let title = titleTextField.text != "" ? titleTextField.text : "title"
-            let date = "\(dateTextField.text!) 00:00:00"
-            let record = ApiRecordFieldsModel(title: title ?? "", price: viewModel.priceTotal, date: date, typeID: viewModel.type.fields.typeID, isExpense: 1)
+            let record = viewModel.createApiRecordFieldsModel()
             
             if viewModel.recordID != "" {
                 let records = updateRecordRequest(records: [
@@ -148,12 +156,14 @@ class EditRecordViewController: UIViewController {
         }
     }
     
+    @objc func updateTitle(_ sender: UITextField) {
+        viewModel.titleText = sender.text ?? ""
+    }
+    
     func setupDatePicker() {
-        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.preferredDatePickerStyle = .inline
         datePicker.datePickerMode = .date
-        datePicker.date = viewModel.date
         
-        dateTextField.text = DateFormatter.stringyyyyMMdd(from: datePicker.date)
         dateTextField.inputView = datePicker
         dateTextField.inputAccessoryView = createDatePickerToolbar()
         dateTextField.tintColor = .clear
@@ -163,14 +173,19 @@ class EditRecordViewController: UIViewController {
     func createDatePickerToolbar() -> UIToolbar {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
-        let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(datePickerDoneBtn))
         let spaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([spaceItem,doneBtn], animated: true)
+        let todayBtn = UIBarButtonItem(barButtonSystemItem: .reply, target: self, action: #selector(datePickerTodayBtn))
+        let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(datePickerDoneBtn))
+        toolBar.setItems([spaceItem, todayBtn, doneBtn], animated: true)
         return toolBar
     }
     
+    @objc func datePickerTodayBtn() {
+        datePicker.date = Date()
+    }
+    
     @objc func datePickerDoneBtn() {
-        dateTextField.text = DateFormatter.stringyyyyMMdd(from: datePicker.date)
+        viewModel.date = datePicker.date
         view.endEditing(true)
     }
     
@@ -205,6 +220,13 @@ extension EditRecordViewController: UICollectionViewDelegate {
 
 // MARK: UITextFieldDelegate
 extension EditRecordViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == dateTextField {
+            // 每次開啟日期選擇器時皆重新設定date
+            datePicker.date = viewModel.date
+        }
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
