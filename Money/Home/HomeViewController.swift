@@ -161,7 +161,7 @@ extension HomeViewController: UITableViewDelegate {
             let cellDatas = self.viewModel.getSectionRecords(indexPath.section)
             if cellDatas.count > indexPath.row {
                 let cellInfo = cellDatas[indexPath.row]
-                APIService.share.deleteRecords([cellInfo.id]) {
+                APIService.share.delete(.record, ids: [cellInfo.id]) {
                     DispatchQueue.main.async {
                         self.viewModel.records.removeAll(where: { $0.id == cellInfo.id })
                         if self.viewModel.getSectionRecords(indexPath.section).count == 0 {

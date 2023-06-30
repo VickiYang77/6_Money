@@ -23,18 +23,18 @@ class HomeViewModel {
     func setupBinding() {
         fetchRecords
             .sink {
-                APIService.share.fetchRecords(completion: { [weak self] recordsModel in
-                    guard let self = self else { return }
+                APIService.share.fetch(.record) { [weak self] (response: RecordsModel?) in
+                    guard let self = self, let records = response?.records else { return }
                     
-                    self.dateSection = Set(recordsModel.map(\.fields.date)).sorted(by: >)
-                    self.records = recordsModel.sorted {
+                    self.dateSection = Set(records.map(\.fields.date)).sorted(by: >)
+                    self.records = records.sorted {
                         if $0.fields.date == $1.fields.date {
                             return $0.fields.updateTime > $1.fields.updateTime
                         } else {
                             return $0.fields.date > $1.fields.date
                         }
                     }
-                })
+                }
             }
             .store(in: &cancellable)
     }

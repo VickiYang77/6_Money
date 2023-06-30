@@ -17,7 +17,8 @@ class ApplicationManager {
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
 
-        APIService.share.fetchTypes { typesModel in
+        APIService.share.fetch(.type) { (response: TypesModel?) in
+            guard let typesModel = response?.records else { return }
             types = typesModel
             dispatchGroup.leave()
         }

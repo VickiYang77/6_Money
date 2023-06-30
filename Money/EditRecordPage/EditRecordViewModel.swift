@@ -76,7 +76,7 @@ class EditRecordViewModel {
                 .init(id: recordID, fields: record)
             ])
             
-            APIService.share.updateRecords(records) { [weak self] in
+            APIService.share.update(.record, data: records) {[weak self] in
                 self?.popViewController.send()
             }
         } else {
@@ -84,7 +84,7 @@ class EditRecordViewModel {
                 .init(fields: record)
             ])
             
-            APIService.share.insertRecords(records) { [weak self] in
+            APIService.share.insert(.record, data: records) {[weak self] in
                 self?.popViewController.send()
             }
         }
