@@ -25,20 +25,20 @@ class HomeViewModel {
                 self?.dateSection = Set(records.map(\.fields.date)).sorted(by: >)
             }
             .store(in: &cancellable)
+        
+        kAM.share.$typeFetching
+            .dropFirst()
+            .filter { typeFetching in
+                typeFetching == false
+            }
+            .sink { [weak self] _ in
+                self?.fetchRecords()
+            }
+            .store(in: &cancellable)
     }
     
-    func fetchRecords() {
-        APIService.share.fetch(.record) { [weak self] (response: RecordsModel?) in
-            guard let self = self, let records = response?.records else { return }
-            
-            self.records = records.sorted {
-                if $0.fields.date == $1.fields.date {
-                    return $0.fields.updateTime > $1.fields.updateTime
-                } else {
-                    return $0.fields.date > $1.fields.date
-                }
-            }
-        }
+    func fetchDatas() {
+        fetchTypes()
     }
     
     func deleteRecord(_ record: RecordModel) {
@@ -54,5 +54,28 @@ class HomeViewModel {
     
     func getRecordsWith(_ date: Date) -> [RecordModel] {
         return records.filter { $0.fields.date == date }
+    }
+    
+    private func fetchRecords() {
+        APIService.share.fetch(.record) { [weak self] (response: RecordsModel?) in
+            guard let self = self, let records = response?.records else { return }
+            
+            self.records = records.sorted {
+                if $0.fields.date == $1.fields.date {
+                    return $0.fields.updateTime > $1.fields.updateTime
+                } else {
+                    return $0.fields.date > $1.fields.date
+                }
+            }
+        }
+    }
+    
+    private func fetchTypes() {
+        kAM.share.typeFetching = true
+        APIService.share.fetch(.type) { (response: TypesModel?) in
+            guard let typesModel = response?.records else { return }
+            kAM.share.types = typesModel
+            kAM.share.typeFetching = false
+        }
     }
 }

@@ -11,21 +11,10 @@ typealias kAM = ApplicationManager
 
 class ApplicationManager {
     static let share = ApplicationManager()
+    private init() {}
     
-    lazy var types: [TypeModel] = {
-        var types: [TypeModel] = []
-        let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
-
-        APIService.share.fetch(.type) { (response: TypesModel?) in
-            guard let typesModel = response?.records else { return }
-            types = typesModel
-            dispatchGroup.leave()
-        }
-
-        dispatchGroup.wait()
-        return types
-    }()
+    @Published var typeFetching = false
+    var types: [TypeModel] = []
     
     func getTypeWithId(_ typeID: String) -> TypeModel {
         return kAM.share.types.first(where: { $0.fields.typeID == typeID }) ?? kAM.share.types.first!

@@ -34,7 +34,7 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.fetchRecords()
+        viewModel.fetchDatas()
     }
     
     private func setupUI() {
