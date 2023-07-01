@@ -7,19 +7,12 @@
 
 import UIKit
 
-// MARK: - Record Request
-struct InsertRecordRequest: Codable {
-    let records: [InsertRecordModel]
+struct InsertRequest<T: Codable>: Codable {
+    let records: [T]
 }
 
 struct InsertRecordModel: Codable {
     let fields: ApiRecordFieldsModel
-}
-
-
-// MARK: - Type Request
-struct InsertTypeRequest: Codable {
-    let records: [InsertTypeModel]
 }
 
 struct InsertTypeModel: Codable {

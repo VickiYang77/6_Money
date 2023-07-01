@@ -72,16 +72,16 @@ class EditRecordViewModel {
         let record = ApiRecordFieldsModel(title: title, price: priceTotal, date: dateString, typeID: typeID, isExpense: isExpense)
         
         if recordID != "" {
-            let records = updateRecordRequest(records: [
-                .init(id: recordID, fields: record)
+            let records = updateRequest(records: [
+                updateRecordModel(id: recordID, fields: record)
             ])
             
             APIService.share.update(.record, data: records) {[weak self] in
                 self?.popViewController.send()
             }
         } else {
-            let records = InsertRecordRequest(records: [
-                .init(fields: record)
+            let records = InsertRequest(records: [
+                InsertRecordModel.init(fields: record)
             ])
             
             APIService.share.insert(.record, data: records) {[weak self] in
