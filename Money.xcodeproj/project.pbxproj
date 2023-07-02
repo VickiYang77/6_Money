@@ -131,11 +131,11 @@
 				996C615E2A0F8AB9008FEC41 /* Helper */,
 				99626E582A26534C00BDE238 /* API */,
 				996C61422A0F7166008FEC41 /* AppDelegate.swift */,
+				996C61442A0F7166008FEC41 /* SceneDelegate.swift */,
 				996C614B2A0F7169008FEC41 /* Assets.xcassets */,
 				996C61502A0F7169008FEC41 /* Info.plist */,
 				996C614D2A0F7169008FEC41 /* LaunchScreen.storyboard */,
 				996C61482A0F7166008FEC41 /* Main.storyboard */,
-				996C61442A0F7166008FEC41 /* SceneDelegate.swift */,
 			);
 			path = Money;
 			sourceTree = "<group>";

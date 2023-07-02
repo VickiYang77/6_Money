@@ -181,7 +181,7 @@ class EditRecordViewController: UIViewController {
 // MARK: UICollectionViewDataSource
 extension EditRecordViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return  kAM.share.types.count
+        return  kAM.share.types.count - 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -189,7 +189,7 @@ extension EditRecordViewController: UICollectionViewDataSource {
         
         guard kAM.share.types.count > indexPath.row else { return UICollectionViewCell() }
         
-        let typeInfo =  kAM.share.types[indexPath.row].fields
+        let typeInfo =  kAM.share.types[indexPath.row+1].fields
         cell.setup(name: typeInfo.name, image: typeInfo.icon)
         return cell
     }
@@ -198,7 +198,7 @@ extension EditRecordViewController: UICollectionViewDataSource {
 // MARK: UICollectionViewDelegate
 extension EditRecordViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.type =  kAM.share.types[indexPath.row]
+        viewModel.type =  kAM.share.types[indexPath.row+1]
     }
 }
 

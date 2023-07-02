@@ -14,6 +14,7 @@ enum dataBaseTableType: String {
 
 class APIService {
     static let share = APIService()
+    private init() {}
     
     private let apiUrl = "https://api.airtable.com/v0/appLrblBIgiRkLHYX/"
     

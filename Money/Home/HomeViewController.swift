@@ -30,11 +30,12 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupBinding()
+        viewModel.fetchTypes()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.fetchDatas()
+        viewModel.fetchRecords()
     }
     
     private func setupUI() {
@@ -57,10 +58,10 @@ class HomeViewController: UIViewController {
         viewModel.$records
             .combineLatest(viewModel.$dateSection)
             .receive(on: RunLoop.main)
-            .sink { [weak self] (records, dataSection) in
+            .sink { [weak self] (records, dateSection) in
                 guard let self = self else { return }
                 var snapshot = HomeSnapshot()
-                for date in dataSection {
+                for date in dateSection {
                     let items = self.viewModel.getRecordsWith(date)
                     snapshot.appendSections([HomeSection(date: date)])
                     snapshot.appendItems(items, toSection: HomeSection(date: date))
@@ -68,6 +69,16 @@ class HomeViewController: UIViewController {
                 
                 self.dataSource.defaultRowAnimation = .fade
                 self.dataSource.apply(snapshot, animatingDifferences: true)
+            }
+            .store(in: &cancellable)
+        
+        viewModel.reloadTableView
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in
+                guard let self = self else { return }
+                var currentSnapshot = self.dataSource.snapshot()
+                currentSnapshot.reloadItems(currentSnapshot.itemIdentifiers)
+                self.dataSource.apply(currentSnapshot, animatingDifferences: true)
             }
             .store(in: &cancellable)
     }

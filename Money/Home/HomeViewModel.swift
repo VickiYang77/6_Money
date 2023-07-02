@@ -14,6 +14,8 @@ class HomeViewModel {
     @Published var budget: Int = 5000
     private var cancellable = Set<AnyCancellable>()
     
+    var reloadTableView = PassthroughSubject<Void, Never>()
+    
     init() {
         setupBinding()
     }
@@ -25,20 +27,6 @@ class HomeViewModel {
                 self?.dateSection = Set(records.map(\.fields.date)).sorted(by: >)
             }
             .store(in: &cancellable)
-        
-        kAM.share.$typeFetching
-            .dropFirst()
-            .filter { typeFetching in
-                typeFetching == false
-            }
-            .sink { [weak self] _ in
-                self?.fetchRecords()
-            }
-            .store(in: &cancellable)
-    }
-    
-    func fetchDatas() {
-        fetchTypes()
     }
     
     func deleteRecord(_ record: RecordModel) {
@@ -56,7 +44,7 @@ class HomeViewModel {
         return records.filter { $0.fields.date == date }
     }
     
-    private func fetchRecords() {
+    func fetchRecords() {
         APIService.share.fetch(.record) { [weak self] (response: RecordsModel?) in
             guard let self = self, let records = response?.records else { return }
             
@@ -70,12 +58,11 @@ class HomeViewModel {
         }
     }
     
-    private func fetchTypes() {
-        kAM.share.typeFetching = true
-        APIService.share.fetch(.type) { (response: TypesModel?) in
-            guard let typesModel = response?.records else { return }
+    func fetchTypes() {
+        APIService.share.fetch(.type) { [weak self] (response: TypesModel?) in
+            guard let self = self, let typesModel = response?.records else { return }
             kAM.share.types = typesModel
-            kAM.share.typeFetching = false
+            self.reloadTableView.send()
         }
     }
 }
